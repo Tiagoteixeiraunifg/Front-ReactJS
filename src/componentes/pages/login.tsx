@@ -12,6 +12,7 @@ export const Login = () => {
 		<div className="App">
 			<form>
 				<h3>Entrar no Sistema</h3>
+				<br />
 				<div className="form-gp">
 					<TextField type="email" className="textbox" label="Inserir Email" ></TextField>
 				</div>
@@ -20,7 +21,7 @@ export const Login = () => {
 				</div>
 				<Stack direction="row" spacing={0.1} margin-top={5}>
 					<div >
-						<Checkbox className="custom-control-input" id="customCheck1" />
+						<Checkbox />
 					</div>
 					<div >
 						<InputLabel >Manter Conectado</InputLabel>

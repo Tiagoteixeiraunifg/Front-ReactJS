@@ -76,6 +76,7 @@ export default function ComboBox() {
           value={personName}
           onChange={handleChange}
           input={<OutlinedInput label="Estado" />}
+          
         >
           {names.map((name) => (
             <MenuItem
