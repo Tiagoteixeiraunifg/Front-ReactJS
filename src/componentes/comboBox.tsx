@@ -65,18 +65,17 @@ export default function ComboBox() {
 
   return (
     <div>
-      <FormControl sx={{ m: 0, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Estado</InputLabel>
+      <FormControl  sx={{ m: 0, width: 250 }}>
+        <InputLabel id="comboEstado">Estado</InputLabel>
         <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
+          labelId="comboEstado"
+          id="comboEstado"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label="Estado" />}
-          
+          input={<OutlinedInput label="Estado" />}         
         >
           {names.map((name) => (
             <MenuItem
