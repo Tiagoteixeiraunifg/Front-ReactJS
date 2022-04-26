@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SingIn } from "./componentes/pages/singin";
-import { SignUp } from "./componentes/pages/userRegister";
+import { SignUp } from "./componentes/pages/usrRegister";
 import { HomeMenu } from "./componentes/pages/homeMenu";
 import { CadastroCliente } from "./componentes/pages/clientRegister";
 import { HomeFooter } from "./componentes/pages/homeFooter";
