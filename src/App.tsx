@@ -1,6 +1,8 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "./componentes/css/styles.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SingIn } from "./componentes/pages/singin";
 import { SignUp } from "./componentes/pages/userRegister";
@@ -8,7 +10,7 @@ import { HomeMenu } from "./componentes/pages/homeMenu";
 import { CadastroCliente } from "./componentes/pages/clientRegister";
 import { HomeFooter } from "./componentes/pages/homeFooter";
 
-//renderizar
+
 function App() {
   return (
     <section className="App">
