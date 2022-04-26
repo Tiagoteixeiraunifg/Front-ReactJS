@@ -3,11 +3,11 @@ import "./index.css";
 import "./componentes/css/styles.css";
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { SingIn } from "./componentes/pages/singin";
-import { SignUp } from "./componentes/pages/userregister";
-import { HomeMenu } from "./componentes/pages/homemenu";
-import { CadastroCliente } from "./componentes/pages/clienteregister";
-import { HomeFooter } from "./componentes/pages/homefooter";
+import { SingIn } from "./componentes/pages/sing-in";
+import { SignUp } from "./componentes/pages/user-register";
+import { HomeMenu } from "./componentes/pages/home-menu";
+import { CadastroCliente } from "./componentes/pages/cliente-register";
+import { HomeFooter } from "./componentes/pages/home-footer";
 
 
 function App() {
