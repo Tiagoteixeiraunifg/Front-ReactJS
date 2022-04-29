@@ -3,12 +3,19 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from './App';
+import { ThemeProvider } from 'react-bootstrap';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
-root.render( <BrowserRouter>
-  <App />
-</BrowserRouter>);
+root.render(
+  <BrowserRouter>
+    <ThemeProvider
+      breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+    >
+      <App />
+    </ThemeProvider>;
+
+  </BrowserRouter>);
 
 
 

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button/Button";
 import { useNavigate } from "react-router-dom";
 
 export const HomeMenu = () => {
-    
+
     const navegarPara = useNavigate();
     const logado = true;
 
@@ -41,6 +41,10 @@ export const HomeMenu = () => {
         navegarPara("/sign-in");
     };
 
+    const handleNavegarPrincipal = () => {
+        navegarPara("/");
+    };
+
     return (
         <nav
             className="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top navbar-light2 "
@@ -51,7 +55,7 @@ export const HomeMenu = () => {
                     className="navbar-brand"
                     type="button"
                     variant="text"
-                    onClick={handleNavegarCadLogin}
+                    onClick={handleNavegarPrincipal}
                     name=""
                 >
                     Página de Início
