@@ -7,6 +7,7 @@ import { SingIn } from "./componentes/pages/sing-in";
 import { SignUp } from "./componentes/pages/user-register";
 import { HomeMenu } from "./componentes/pages/home-menu";
 import { CadastroCliente } from "./componentes/pages/cliente-register";
+import { HomePrincipal } from "./componentes/pages/home-principal"
 import { HomeFooter } from "./componentes/pages/home-footer";
 
 
@@ -17,7 +18,9 @@ function App() {
       <div className="row py-5"></div>
       <div className="container">
           <Routes>
-            <Route path="/" element={<SingIn />} />
+
+            <Route path="/" element={<HomePrincipal/>} /> 
+
 
             <Route path="/sign-in" element={<SingIn />} />
 

@@ -23,6 +23,12 @@
   font-style: color="#ffffff", normal;
 
 }
+
+.auth-wrapper-img {
+  
+  background-image: url('./images/imgFundo.jpg');
+
+}
 .auth-wrapper {
 
   align-items: auto !important;
