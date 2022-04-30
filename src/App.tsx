@@ -18,7 +18,6 @@ function App() {
       <div className="row py-5"></div>
       <div className="container">
           <Routes>
-
             <Route path="/" element={<HomePrincipal/>} /> 
 
             <Route path="/sign-in" element={<SingIn />} />
@@ -29,6 +28,7 @@ function App() {
             />
           </Routes>
       </div>
+      <div className="row py-3"></div>
       <HomeFooter />
     </section>
   );

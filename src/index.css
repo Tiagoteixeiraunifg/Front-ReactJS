@@ -18,10 +18,10 @@
 .navbar-light2 {
   margin-bottom: 15px;
 }
+
 .color-nav{
 
   font-style: color="#ffffff", normal;
-
 }
 
 .auth-wrapper-img {
@@ -210,11 +210,6 @@
   margin-bottom: 0.5rem
 }
 
-.footer-css{
-  text-align: center;
-  align-items: center;
-  color: #000000;
-}
 
 .alingbutton{
   margin: 2px;
@@ -239,10 +234,12 @@
 }
 
 .img-inicio{
+  justify-content: center;
+  flex-direction: row;
   text-align: center;
   align-items: center;
   display: flex;
-  height: 700px;
+  height: 900px;
   width: 100%;
   background-size: auto;
   border: 1px solid #ced4da;
@@ -250,3 +247,4 @@
   background: #ffffff;
   box-shadow: 3px 14px 80px rgba(67, 74, 215, 0.752); 
 }
+

@@ -1,6 +1,9 @@
 import React from 'react';
 import Button from "@mui/material/Button/Button";
 import { useNavigate } from "react-router-dom";
+import {Navbar, Container} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouseChimney, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 export const HomeMenu = () => {
 
@@ -46,22 +49,22 @@ export const HomeMenu = () => {
     };
 
     return (
-        <nav
-            className="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top navbar-light2 "
-            id="mainNav"
+        <Navbar bg="dark" expand="lg"  fixed='top' id="mainNav" 
+        className="navbar-light2 navbar-shrink"
         >
-            <div className="container">
+            <Container>
                 <Button
-                    className="navbar-brand"
-                    type="button"
-                    variant="text"
-                    onClick={handleNavegarPrincipal}
-                    name=""
-                >
-                    Página de Início
+                        className="navbar-brand text-white"
+                        type="button"
+                        variant="text"
+                        onClick={handleNavegarPrincipal}
+                        name=""
+                    >
+                        <FontAwesomeIcon  icon={faHouseChimney}/>
+                        Início
                 </Button>
                 <Button
-                    className="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+                    className="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded color-nav"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarResponsive"
@@ -78,9 +81,10 @@ export const HomeMenu = () => {
                             <Button
                                 type="button"
                                 variant="text"
-                                className="nav-link py-3 px-0 px-lg-3 rounded"
+                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                 onClick={handleNavegarCadLogin}
                             >
+                                <FontAwesomeIcon icon={faRightToBracket} />
                                 Entrar
                             </Button>
                         </li>
@@ -88,7 +92,7 @@ export const HomeMenu = () => {
                             <Button
                                 type="button"
                                 variant="text"
-                                className="nav-link py-3 px-0 px-lg-3 rounded"
+                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                 onClick={handleNavegarCadUser}
                             >
                                 Cadastre-se
@@ -98,7 +102,7 @@ export const HomeMenu = () => {
                             <Button
                                 type="button"
                                 variant="text"
-                                className="nav-link py-3 px-0 px-lg-3 rounded"
+                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                 onClick={handleNavegarCadCli}
                             >
                                 Cadastro Cliente
@@ -106,7 +110,7 @@ export const HomeMenu = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </Container>
+        </Navbar>
     );
 };
