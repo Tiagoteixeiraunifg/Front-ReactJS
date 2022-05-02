@@ -1,9 +1,9 @@
 import React, { DetailedHTMLProps, useEffect } from 'react';
-import Button from "@mui/material/Button/Button";
 import TextField from "@mui/material/TextField/TextField";
 import apiAuth from "../util/Api";
 import  axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import { Container, Row, Form, Col, Stack, Button, FormCheck } from 'react-bootstrap';
 
 interface userCad {
     nome: string;
@@ -81,16 +81,21 @@ export const SignUp = () => {
 
 
     return (
-        <section className="auth-wrapper">
-            <div className="auth-inner">
-                <form>
-                    <h3>Cadastre-se</h3>
-                    <div className="form-gp">
-                        <TextField
+        <div className="auth-wrapper">
+        <div className="auth-inner">
+          <Container className="mb-3">
+            <Row>
+              <Col>
+                <Form>
+                    <br/>
+                    <h3>CADASTRE-SE</h3>
+                    <Row form>
+                    <Col md="12" className="form-group">
+                        <label htmlFor="name"> Nome </label>
+                        <Form.Control
                             type="text"
                             className="textbox"
                             placeholder="Nome"
-                            label="Nome"
                             name="nome"
                             data-sb-validations="required"
                             id="name"
@@ -98,28 +103,28 @@ export const SignUp = () => {
                             value={objUser.nome}
                         />
                         <div className="invalid-feedback" data-sb-feedback="name:required">O nome é requerido.</div>
-                    </div>
+                    </Col>
                     
-                    <div className="form-gp">
-                        <TextField
+                    <Col md="12" className="form-group">
+                        <label htmlFor="sobrenome"> Sobrenome </label>
+                        <Form.Control
                             type="text"
                             className="textbox"
                             placeholder="Sobrenome"
-                            label="Sobrenome"
                             name="sobrenome"
                             data-sb-validations="required"
-                            id="name"
+                            id="sobrenome"
                             onChange={handleInput}
                             value={objUser.sobrenome}
                         />
-                         <div className="invalid-feedback" data-sb-feedback="name:required">O sobrenome é requerido.</div>
-                    </div>
-                    <div className="form-gp">
-                        <TextField
+                         <div className="invalid-feedback" data-sb-feedback="sobrenome:required">O sobrenome é requerido.</div>
+                    </Col>
+                    <Col md="12" className="form-group">
+                        <label htmlFor="email"> Email </label>
+                        <Form.Control
                             type="email"
                             className="textbox"
                             placeholder="name@example.com"
-                            label="Endereço do Email"
                             name="email"
                             data-sb-validations="required,email"
                             id="email"
@@ -128,13 +133,13 @@ export const SignUp = () => {
                         />
                         <div className="invalid-feedback" data-sb-feedback="email:required">Email é requerido.</div>
                         <div className="invalid-feedback" data-sb-feedback="email:email">Email não é valido.</div>
-                    </div>
-                    <div className="form-gp">
-                        <TextField
+                    </Col>
+                    <Col md="12" className="form-group">
+                        <label htmlFor="password"> Senha </label>
+                        <Form.Control
                             type="password"
                             className="textbox"
                             placeholder="Digite a Senha"
-                            label="Senha"
                             name="password"
                             data-sb-validations="required"
                             id="password"
@@ -142,13 +147,13 @@ export const SignUp = () => {
                             value={objUser.password}
                         />
                          <div className="invalid-feedback" data-sb-feedback="password:required">É requerido uma senha.</div>
-                    </div>
-                    <div className="form-gp">
-                        <TextField
+                    </Col>
+                    <Col md="12" className="form-group">
+                        <label htmlFor="confirmPassword"> Confirmar Senha </label>
+                        <Form.Control
                             type="password"
                             className="textbox"
                             placeholder="Digite a Senha"
-                            label="Confirme Senha"
                             name="confirmPassword"
                             data-sb-validations="required"
                             id="confirmPassword"
@@ -156,15 +161,21 @@ export const SignUp = () => {
                             value={objUser.confirmPassword}
                         />
                         <div className="invalid-feedback" data-sb-feedback="confirmPassword:required">É requerido que confirme a senha.</div>
-                    </div>
+                    </Col>
+                    </Row>
+
                     <Button type="button" id="submitButton" onClick={submeter} >
                         Cadastrar
                     </Button>
+
                     <p className="forgot-password text-right">
                         Já é registrado <a href="/sign-in">faça o login?</a>
                     </p>
-                </form>
-            </div>
-        </section>
+                </Form>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </div>
     );
 };

@@ -20,7 +20,6 @@
 }
 
 .color-nav{
-
   font-style: color="#ffffff", normal;
 }
 
@@ -44,23 +43,22 @@
  
 }
 .auth-inner {
-
   align-items: center !important;
   background-color: transparent;
   display: flex;
+  flex-wrap: row;
   justify-content: center;
   flex-direction: row;
-  flex-wrap: all;
   text-align: left !important;
   margin-bottom: 10px;
-  width: 500px;
-  min-width: 400px;
+  width: 400px;
+  min-width: 350px;
   height: 100%;
   background: #ffffff;
   box-shadow: 1px 5px 30px rgb(0 0 3 / 66%);
-  padding: 20px 25px 25px 20px;
-  border-radius: 10px;
-  transition: all .8s;
+  padding: 15px 15px 15px 15px;
+  border-radius: 5px;
+  transition: all 2s;
   
 }
 
@@ -74,13 +72,13 @@
   flex-wrap: row;
   text-align: left !important;
   margin-bottom: 10px;
-  width: 800px;
+  width: 100%;
   min-width: 350px;
   height: 100%;
   background: #ffffff;
   box-shadow: 1px 5px 30px rgb(0 0 3 / 66%);
-  padding: 5px 8px 5px 8px;
-  border-radius: 10px;
+  padding: 15px 15px 15px 15px;
+  border-radius: 5px;
   transition: all .8s;
   
 }
@@ -94,6 +92,7 @@
   margin: 0;
   line-height: 1;
   padding-bottom: 20px;
+  text-shadow: 1px 5px 15px rgb(0 0 3 / 66%);
 }
 .custom-control-label {
   font-weight: 400;
@@ -112,11 +111,9 @@
 .textbox {
 
   display: flex;
-  width: 100%;
-  min-width: 150px;
-  height: 75px;
+  height: 50px;
   padding: 0.375rem 0.75rem;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: #323e49;
   background-color: #fff;
@@ -247,6 +244,6 @@
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   background: #ffffff;
-  box-shadow: 3px 14px 80px rgba(67, 74, 215, 0.752); 
+  box-shadow: 1px 5px 30px rgb(0 0 3 / 66%);
 }
 

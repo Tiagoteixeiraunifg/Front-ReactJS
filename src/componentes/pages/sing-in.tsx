@@ -1,47 +1,64 @@
 import React from 'react';
-import InputLabel from "@mui/material/InputLabel";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack/Stack";
+import { Container, Row, Form, Col, Stack, Button, FormCheck } from 'react-bootstrap';
 
 export const SingIn = () => {
   return (
-    <section className="auth-wrapper d-flex flex-wrap">
-      <div className="auth-inner d-flex flex-wrap">
-        <form>
-          <h3>Entrar no Sistema</h3>
-          <br />
-          <div className="form-gp">
-            <TextField
-              type="email"
-              className="textbox"
-              label="Inserir Email"
-            ></TextField>
-          </div>
-          <div className="form-gp">
-            <TextField
-              type="password"
-              className="textbox"
-              label="Digite a senha"
-            ></TextField>
-          </div>
-          <Stack direction="row" spacing={0.1} margin-top={5}>
-            <div>
-              <Checkbox />
-            </div>
-            <div>
-              <InputLabel>Manter Conectado</InputLabel>
-            </div>
-          </Stack>
-          <Button variant="contained" type="submit">
-            Fazer Login
-          </Button>
-          <p className="forgot-password text-right">
-            Esqueceu a <a href="#">senha?</a>
-          </p>
-        </form>
+    <div className="auth-wrapper">
+      <div className="auth-inner">
+        <Container className="mb-3">
+          <Row>
+            <Col>
+              <Form>
+                <br />
+                <h3>ENTRAR NO SISTEMA</h3>
+                <br />
+                <br />
+                <Row form>
+                  {/* Email */}
+                  <Col md="12" className="form-group">
+                    <label htmlFor="feEmail"> Email </label>
+                    <Form.Control
+                       type="email"
+                       id="feEmail"
+                       placeholder="exemplo@exemplo.com"
+                       onChange={() => { }}
+                       autoComplete="email"
+                       className="textbox"
+                    />
+                  </Col>
+                </Row>
+                <br/>
+                <Row form>
+                  <Col Col md="12" className="form-group">
+                    <label htmlFor='fePassword'> Senha </label>
+                    <Form.Control
+                    id='fePassword'
+                    type="password"
+                    name='password'
+                    onChange={() => { }}
+                    className="textbox"
+                    />
+       
+                  </Col>
+                </Row>
+                <div className="form-check">
+                  <FormCheck id='feConected' />
+                  <label htmlFor='feConected' className='form-check-label' > Manter Contectado? </label>
+                </div>
+                <br/>
+
+                <Button variant="secondary" size="lg" type="submit">
+                  Fazer Login
+                </Button>
+
+                <p className="forgot-password text-right">
+                  Esqueceu a <a href="#">senha?</a>
+                </p>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
-    </section>
+    </div>
   );
 };

@@ -10,7 +10,7 @@ import { CadastroCliente } from "./componentes/pages/cliente-register";
 import { HomePrincipal } from "./componentes/pages/home-principal"
 import { HomeFooter } from "./componentes/pages/home-footer";
 import { TabelaCliente } from "./componentes/pages/client-registered";
-import { UserAccountDetails } from "./componentes/pages/clientRegister";
+import { PageCliente } from "./componentes/pages/clientRegister";
 
 
 function App() {
@@ -28,9 +28,7 @@ function App() {
 
             <Route path="/sign-up" element={<SignUp />} />
 
-            <Route path="/cad-cli" element={<CadastroCliente email="" permissao="" />} />
-
-            <Route path="/cad-cli2" element={<UserAccountDetails />} />
+            <Route path="/cad-cli" element={<PageCliente />} />
 
           </Routes>
       </div>
