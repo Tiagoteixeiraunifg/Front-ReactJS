@@ -9,6 +9,8 @@ import { HomeMenu } from "./componentes/pages/home-menu";
 import { CadastroCliente } from "./componentes/pages/cliente-register";
 import { HomePrincipal } from "./componentes/pages/home-principal"
 import { HomeFooter } from "./componentes/pages/home-footer";
+import { TabelaCliente } from "./componentes/pages/client-registered";
+import { UserAccountDetails } from "./componentes/pages/clientRegister";
 
 
 function App() {
@@ -20,18 +22,22 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePrincipal/>} /> 
 
+            <Route path="/cli-reg" element={<TabelaCliente/>} />
+
             <Route path="/sign-in" element={<SingIn />} />
 
             <Route path="/sign-up" element={<SignUp />} />
 
-            <Route path="/cad-cli" element={<CadastroCliente email="" permissao="" />}
-            />
+            <Route path="/cad-cli" element={<CadastroCliente email="" permissao="" />} />
+
+            <Route path="/cad-cli2" element={<UserAccountDetails />} />
+
           </Routes>
       </div>
       <div className="row py-3"></div>
       <HomeFooter />
     </section>
-  );
+  )
 }
 
 export default App;

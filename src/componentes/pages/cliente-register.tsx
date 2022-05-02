@@ -288,7 +288,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                                 </Button>
                             </div>
                             <div className="form">
-                                <Button type="submit" variant="contained">
+                                <Button type="submit" variant="contained" onClick={() => navegar("/cli-reg")}>
                                     Listar Clientes
                                 </Button>
                             </div>

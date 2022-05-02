@@ -9,12 +9,9 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <BrowserRouter>
-    <ThemeProvider
-      breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-    >
+    <ThemeProvider breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}>
       <App />
-    </ThemeProvider>;
-
+    </ThemeProvider>
   </BrowserRouter>);
 
 
