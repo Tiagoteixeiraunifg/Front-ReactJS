@@ -1,13 +1,8 @@
 import * as React from 'react';
 import {useState} from 'react'
 import { Theme, useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {Estados} from '../types/Estados'
-
+import { FormSelect } from 'react-bootstrap';
 
 
 let names = ['Selecione'];
@@ -38,7 +33,7 @@ export default function ComboBox() {
      })
      .then((json)=> {
        setEstado(json);
-     });
+     }).catch(() => alert("Erro ao obter lista de estados"));
   }
 
   estados.map((item, index)=> {
@@ -48,46 +43,23 @@ export default function ComboBox() {
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string | number>('');
-  const [open, setOpen] = React.useState(false);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    setPersonName(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  
 
   return (
-    <div>
-      <FormControl  sx={{ m: 0, width: 250 }}>
-        <InputLabel id="comboEstado">Estado</InputLabel>
-        <Select
-          labelId="comboEstado"
+        <FormSelect
           id="comboEstado"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
+          className="textbox"
           value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Estado" />}         
+          onChange={e => setPersonName(e.target.value)}       
         >
           {names.map((name) => (
-            <MenuItem
+            <option
               key={name}
               value={name}
               style={getStyles(name, names, theme)}
             >
               {name}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
-      </FormControl>
-    </div>
+        </FormSelect>
   );
 }

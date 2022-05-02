@@ -1,14 +1,19 @@
 import React from 'react';
+import { DetailedHTMLProps } from 'react';
+import { FormHTMLAttributes } from 'react';
+import { useState } from 'react';
 import { Container, Row, Form, Col, Stack, Button, FormCheck } from 'react-bootstrap';
 
 export const SingIn = () => {
+  const [validated, setValidated] = useState(false);
+
   return (
     <div className="auth-wrapper">
       <div className="auth-inner">
         <Container className="mb-3">
           <Row>
             <Col>
-              <Form>
+              <Form noValidate validated={validated}>
                 <br />
                 <h3>ENTRAR NO SISTEMA</h3>
                 <br />

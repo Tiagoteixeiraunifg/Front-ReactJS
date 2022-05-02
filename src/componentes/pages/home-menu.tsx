@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from "@mui/material/Button/Button";
 import { useNavigate } from "react-router-dom";
-import {Navbar, Container, Stack} from 'react-bootstrap';
+import { Navbar, Container, Stack } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseChimney, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouseChimney, faRightToBracket, faUserPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 export const HomeMenu = () => {
 
@@ -49,18 +49,18 @@ export const HomeMenu = () => {
     };
 
     return (
-        <Navbar bg="dark" expand="lg"  fixed='top' id="mainNav" 
-        className="navbar-light2 navbar-shrink"
+        <Navbar bg="dark" expand="lg" fixed='top' id="mainNav"
+            className="navbar-light2 navbar-shrink"
         >
             <Container>
                 <Button
-                        className="navbar-brand text-white"
-                        type="button"
-                        variant="text"
-                        onClick={handleNavegarPrincipal}
-                        name=""
-                    >
-                        <FontAwesomeIcon  icon={faHouseChimney}/>
+                    className="navbar-brand text-white"
+                    type="button"
+                    variant="text"
+                    onClick={handleNavegarPrincipal}
+                    name=""
+                >
+                    <FontAwesomeIcon icon={faHouseChimney} />
                 </Button>
                 <Button
                     className="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded color-nav"
@@ -79,7 +79,7 @@ export const HomeMenu = () => {
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
 
-                                <FontAwesomeIcon icon={faRightToBracket} />
+                                
                                 <Button
                                     type="button"
                                     variant="text"
@@ -89,29 +89,36 @@ export const HomeMenu = () => {
                                     <FontAwesomeIcon icon={faRightToBracket} />
                                     Entrar
                                 </Button>
-
                             </li>
                         </Stack>
-                        <li className="nav-item mx-0 mx-lg-1">
-                            <Button
-                                type="button"
-                                variant="text"
-                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
-                                onClick={handleNavegarCadUser}
-                            >
-                                Cadastre-se
-                            </Button>
-                        </li>
-                        <li className="nav-item mx-0 mx-lg-1">
-                            <Button
-                                type="button"
-                                variant="text"
-                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
-                                onClick={handleNavegarCadCli}
-                            >
-                                Cadastro Cliente
-                            </Button>
-                        </li>
+                        <Stack direction="horizontal" gap={3}>
+                            <li className="nav-item mx-0 mx-lg-1">
+                                
+                                <Button
+                                    type="button"
+                                    variant="text"
+                                    className="nav-link py-3 px-0 px-lg-3 rounded text-white"
+                                    onClick={handleNavegarCadUser}
+                                >
+                                    <FontAwesomeIcon icon={faUserPlus} />
+                                    Cadastre-se
+                                </Button>
+                            </li>
+                        </Stack>
+                        <Stack direction="horizontal" gap={3}>
+                            <li className="nav-item mx-0 mx-lg-1">
+                                <Button
+                                    type="button"
+                                    variant="text"
+                                    className="nav-link py-3 px-0 px-lg-3 rounded text-white"
+                                    onClick={handleNavegarCadCli}
+                                >
+                                    <FontAwesomeIcon icon={faAddressCard} />
+                                    Cadastro Cliente
+                                </Button>
+                            </li>
+                        </Stack>
+
                     </ul>
                 </div>
             </Container>

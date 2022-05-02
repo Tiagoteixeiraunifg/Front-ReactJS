@@ -164,7 +164,7 @@ export const SignUp = () => {
                     </Col>
                     </Row>
 
-                    <Button type="button" id="submitButton" onClick={submeter} >
+                    <Button variant="secondary" type="button" id="submitButton" onClick={submeter} >
                         Cadastrar
                     </Button>
 
