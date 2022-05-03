@@ -1,7 +1,5 @@
 import React, { DetailedHTMLProps, useEffect } from 'react';
-import TextField from "@mui/material/TextField/TextField";
 import apiAuth from "../util/Api";
-import  axios from "axios";
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Form, Col, Stack, Button, FormCheck } from 'react-bootstrap';
 
@@ -24,7 +22,7 @@ interface erros {
 
 export const SignUp = () => {
 
-    const navegarPara = useNavigate();
+    const navegarPara =  useNavigate();
 
     const [objError, setError] = React.useState<erros>({
         timestamp: '',
@@ -77,7 +75,6 @@ export const SignUp = () => {
             [event.target.name]: event.target.value,
         });
     }
-
 
 
     return (
