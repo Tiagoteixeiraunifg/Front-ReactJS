@@ -9,6 +9,8 @@ import { useAppSelector } from "../../redux/hooks/useAppSelector";
 
 
 export const HomeMenu = () => {
+    
+    
     const [nomeLogin, setNomeLogin] = useState("Login");
     const userLogin = useAppSelector(state => state.userLogin);
     
@@ -78,7 +80,7 @@ export const HomeMenu = () => {
                     <FontAwesomeIcon  className='fa-xl' icon={faHouseChimney} />
                 </Button>
                 <Button
-                    className="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded color-nav"
+                    className="navbar-toggler text-uppercase font-weight-bold bg-secondary text-white rounded color-nav"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarResponsive"
@@ -91,17 +93,15 @@ export const HomeMenu = () => {
                 </Button>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto">
-                        <Stack direction="horizontal" gap={3}>
+                        <Stack direction="horizontal" gap={3}>      
                             <li className="nav-item mx-0 mx-lg-1">
-
-                                
                                 <Button
                                     type="button"
                                     variant="text"
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadLogin}
                                 >
-                                    <FontAwesomeIcon className='fa-xl' icon={faRightToBracket} />
+                                <FontAwesomeIcon className='fa-xl pe-2' icon={faRightToBracket} />
                                     Entrar
                                 </Button>
                             </li>
@@ -115,7 +115,7 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadUser}
                                 >
-                                    <FontAwesomeIcon className='fa-xl' icon={faUserPlus} />
+                                    <FontAwesomeIcon className='fa-xl pe-2' icon={faUserPlus} />
                                     Cadastre-se
                                 </Button>
                             </li>
@@ -128,7 +128,7 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadCli}
                                 >
-                                    <FontAwesomeIcon className='fa-xl' icon={faAddressCard} />
+                                    <FontAwesomeIcon className='fa-xl pe-2' icon={faAddressCard} />
                                     Cadastro Cliente
                                 </Button>
                             </li>
@@ -136,7 +136,7 @@ export const HomeMenu = () => {
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
                                 <Navbar.Text className='text-white'>
-                                    Usuário logado: <a href="#" className='text-white'>{nomeLogin}</a>
+                                    Usuário logado: <a href="#" className='text-white ps-2'>{nomeLogin}</a>
                                 </Navbar.Text>
                             </li>
                         </Stack>

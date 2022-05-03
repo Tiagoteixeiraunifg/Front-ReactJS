@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { number, string } from 'prop-types';
 
 export const slice = createSlice({ 
     
