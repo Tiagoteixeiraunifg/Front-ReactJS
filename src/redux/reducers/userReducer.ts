@@ -6,14 +6,14 @@ export const slice = createSlice({
     name: 'userLogin',
     initialState:{
        
-        id: number,
-        nome: string,
-        sobrenome: string, 
-        email: string,
-        password: string,
-        userperfil: string,
-        token: string,
-        logado: Boolean,
+        id: 0,
+        nome: "",
+        sobrenome: "", 
+        email: "",
+        password: "",
+        userperfil: "",
+        token: "",
+        logado: false,
 
     },
     reducers: {

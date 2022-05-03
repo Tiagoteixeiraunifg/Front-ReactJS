@@ -72,6 +72,7 @@ const TextMaskCEP = React.forwardRef<HTMLElement, CustomProps>(
     },
 );
 
+
 interface State {
     textmask: string;
     cpf: string;
@@ -264,7 +265,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                             </FormControl>
                         </div>
                         <div className="form-gp-cad py-3">
-                            <ComboBox />
+                       
                         </div>
                     </div>
 

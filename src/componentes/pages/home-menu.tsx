@@ -1,14 +1,30 @@
-import React from 'react';
-import Button from "@mui/material/Button/Button";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Navbar, Container, Stack } from 'react-bootstrap';
+import { Navbar, Container, Stack, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney, faRightToBracket, faUserPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { useAppSelector } from "../../redux/hooks/useAppSelector";
+
+
+
 
 export const HomeMenu = () => {
+    const [nomeLogin, setNomeLogin] = useState("Login");
+    const userLogin = useAppSelector(state => state.userLogin);
+    
+    useEffect(()=> {
+        verificaLogin();
+    }, [userLogin.nome]);
 
+    function verificaLogin() {
+        if (userLogin.logado) {
+            setNomeLogin(userLogin.nome);
+        } else {
+            setNomeLogin("Login");
+        }
+    }
+    
     const navegarPara = useNavigate();
-    const logado = true;
 
     window.addEventListener("DOMContentLoaded", (event) => {
         // Navbar shrink function
@@ -27,10 +43,9 @@ export const HomeMenu = () => {
     });
 
     const handleNavegarCadCli = () => {
-        if (!logado) {
+        if (userLogin.logado) {
             navegarPara("/sign-in");
             alert("Necessário acessar o sistema para cadastrar cliente!");
-            //adicionar aqui um modal de aviso!
         } else {
             navegarPara("/cad-cli");
         }
@@ -60,7 +75,7 @@ export const HomeMenu = () => {
                     onClick={handleNavegarPrincipal}
                     name=""
                 >
-                    <FontAwesomeIcon icon={faHouseChimney} />
+                    <FontAwesomeIcon  className='fa-xl' icon={faHouseChimney} />
                 </Button>
                 <Button
                     className="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded color-nav"
@@ -86,7 +101,7 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadLogin}
                                 >
-                                    <FontAwesomeIcon icon={faRightToBracket} />
+                                    <FontAwesomeIcon className='fa-xl' icon={faRightToBracket} />
                                     Entrar
                                 </Button>
                             </li>
@@ -100,7 +115,7 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadUser}
                                 >
-                                    <FontAwesomeIcon icon={faUserPlus} />
+                                    <FontAwesomeIcon className='fa-xl' icon={faUserPlus} />
                                     Cadastre-se
                                 </Button>
                             </li>
@@ -113,12 +128,18 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadCli}
                                 >
-                                    <FontAwesomeIcon icon={faAddressCard} />
+                                    <FontAwesomeIcon className='fa-xl' icon={faAddressCard} />
                                     Cadastro Cliente
                                 </Button>
                             </li>
                         </Stack>
-
+                        <Stack direction="horizontal" gap={3}>
+                            <li className="nav-item mx-0 mx-lg-1">
+                                <Navbar.Text className='text-white'>
+                                    Usuário logado: <a href="#" className='text-white'>{nomeLogin}</a>
+                                </Navbar.Text>
+                            </li>
+                        </Stack>
                     </ul>
                 </div>
             </Container>

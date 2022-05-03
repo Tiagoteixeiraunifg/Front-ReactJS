@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Container,
@@ -9,14 +9,17 @@ import {
   Stack,
 } from 'react-bootstrap';
 import ComboBox from '../comboBox';
-import {useNavigate}  from 'react-router-dom'
+import {useNavigate}  from 'react-router-dom';
+
 
 
 export const PageCliente = () => {
 
+const [habilitado, setHabilitado] = useState(true);
+  
 const navegarPara = useNavigate();
 
- return(
+return(
   <div className="auth-wrapper">
   <div className="auth-inner-cli">
     <Container className="mb-8">
@@ -38,6 +41,7 @@ const navegarPara = useNavigate();
                   name="nome"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
               {/* Sobre Nome */}
@@ -49,6 +53,7 @@ const navegarPara = useNavigate();
                   name="sobrenome"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
             </Row>
@@ -62,6 +67,7 @@ const navegarPara = useNavigate();
                   name="CPF"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}  
                 />
               </Col>
               {/* Celular */}
@@ -73,6 +79,7 @@ const navegarPara = useNavigate();
                   name="telefone"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
               {/* Email */}
@@ -85,6 +92,7 @@ const navegarPara = useNavigate();
                   onChange={() => { }}
                   autoComplete="email"
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
             </Row>
@@ -98,6 +106,7 @@ const navegarPara = useNavigate();
                   placeholder="Endereço Rua, Av, Travessa"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
               {/* Numero */}
@@ -110,6 +119,7 @@ const navegarPara = useNavigate();
                   name='numero'
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
             </Row>
@@ -123,6 +133,7 @@ const navegarPara = useNavigate();
                   placeholder="Complemento do Endereço"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
             </Row>
@@ -135,12 +146,13 @@ const navegarPara = useNavigate();
                   placeholder="Cidade"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
               {/* Estado */}
               <Col md="4" className="form-group">
                 <label htmlFor="feInputState">Estado</label>
-                <ComboBox />
+                <ComboBox disabled={habilitado}/>
               </Col>
               {/* CEP */}
               <Col md="4" className="form-group">
@@ -150,14 +162,15 @@ const navegarPara = useNavigate();
                   placeholder="CEP"
                   onChange={() => { }}
                   className="textbox"
+                  disabled={habilitado}
                 />
               </Col>
             </Row>
             <br />
             <br />
             <Stack direction="horizontal" gap={3}>
-              <Button variant="secondary" type="button" >Novo</Button>
-              <Button variant="secondary" type="button" >Gravar</Button>
+              <Button variant="secondary" type="button" onClick={()=>{ setHabilitado(false)}} >Novo</Button>
+              <Button variant="secondary" type="button" onClick={()=>{ setHabilitado(true); navegarPara('/cli-reg') }}>Gravar</Button>
               <Button variant="secondary" type="button"onClick={()=> navegarPara('/cli-reg')} >Listar Meus Clientes</Button>
             </Stack>
           </Form>

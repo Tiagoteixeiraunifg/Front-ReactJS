@@ -16,7 +16,11 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function ComboBox() {
+interface props {
+  disabled: boolean;
+}
+
+export default function ComboBox(props: props) {
 
   const [estados, setEstado] = useState<Estados[]>([]);
   const baseURL = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
@@ -49,7 +53,8 @@ export default function ComboBox() {
           id="comboEstado"
           className="textbox"
           value={personName}
-          onChange={e => setPersonName(e.target.value)}       
+          onChange={e => setPersonName(e.target.value)} 
+          disabled={props.disabled}      
         >
           {names.map((name) => (
             <option
