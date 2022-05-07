@@ -40,6 +40,8 @@ export const SingIn = () => {
     userStore(setToken(userBd.token));
   }
 
+  
+
   const [userBd, setUserBd] = React.useState<userLoginType>({
     id: 0,
     nome: '',

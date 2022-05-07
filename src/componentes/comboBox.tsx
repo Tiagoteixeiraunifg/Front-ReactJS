@@ -43,22 +43,25 @@ export default function ComboBox(props: props) {
   estados.map((item, index)=> {
     names.push(item.nome);
   })
-  
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string | number>('');
+  const [selectedEstado, setSelectedEstado] = React.useState<string>('Selecione');
+  
+  React.useEffect(() => {
+    alert(selectedEstado);
+  },[selectedEstado])
 
   return (
         <FormSelect
           id="comboEstado"
           className="textbox"
-          value={personName}
-          onChange={e => setPersonName(e.target.value)} 
+          value={selectedEstado}
+          onChange={e => {setSelectedEstado(e.target.value); console.log(e.target.value)}} 
           disabled={props.disabled}      
         >
-          {names.map((name) => (
+          {names.map((name, index) => (
             <option
-              key={name}
+              key={index}
               value={name}
               style={getStyles(name, names, theme)}
             >
