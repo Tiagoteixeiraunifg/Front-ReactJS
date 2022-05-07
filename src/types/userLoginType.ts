@@ -1,11 +1,11 @@
 export type userLoginType = {
     
-    id: number;
+    id: number,
     nome: string,
     sobrenome: string, 
     email: string,
-    password: string;
+    password: string,
     userperfil: string,
-    token: string
+    token: string,
 
 }

@@ -5,6 +5,7 @@ import https from "https";
 
 
 
+
 const apiAuth = axios.create({
     baseURL: "http://localhost:8080/api",
     headers: {'Content-Type': 'application/json', 'Accept': '*/*'},
@@ -12,9 +13,6 @@ const apiAuth = axios.create({
     responseEncoding: 'utf8',
     httpAgent: new http.Agent({ keepAlive: true }),
     httpsAgent: new https.Agent({ keepAlive: true }),
-
 });
-
-
 
 export default apiAuth;

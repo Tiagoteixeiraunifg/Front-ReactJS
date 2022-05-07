@@ -46,4 +46,4 @@ export const slice = createSlice({
 
 export default slice.reducer;
 
-export const {setNome, setSobrenome, setEmail, setPassword, setToken, setUserPerfil, setLogado} = slice.actions;
+export const {setId, setNome, setSobrenome, setEmail, setPassword, setToken, setUserPerfil, setLogado} = slice.actions;

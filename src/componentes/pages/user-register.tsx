@@ -1,5 +1,5 @@
 import React, { DetailedHTMLProps, useEffect } from 'react';
-import apiAuth from "../util/Api";
+import apiAuth from "../services/Api";
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Form, Col, Stack, Button, FormCheck } from 'react-bootstrap';
 

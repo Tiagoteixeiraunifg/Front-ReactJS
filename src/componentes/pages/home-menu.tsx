@@ -9,22 +9,11 @@ import { useAppSelector } from "../../redux/hooks/useAppSelector";
 
 
 export const HomeMenu = () => {
-    
-    
+        
     const [nomeLogin, setNomeLogin] = useState("Login");
     const userLogin = useAppSelector(state => state.userLogin);
     
-    useEffect(()=> {
-        verificaLogin();
-    }, [userLogin.nome]);
 
-    function verificaLogin() {
-        if (userLogin.logado) {
-            setNomeLogin(userLogin.nome);
-        } else {
-            setNomeLogin("Login");
-        }
-    }
     
     const navegarPara = useNavigate();
 
@@ -136,7 +125,7 @@ export const HomeMenu = () => {
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
                                 <Navbar.Text className='text-white'>
-                                    Usuário logado: <a href="#" className='text-white ps-2'>{nomeLogin}</a>
+                                    Usuário logado: <a href="#" className='text-white ps-2'>{userLogin.nome}</a>
                                 </Navbar.Text>
                             </li>
                         </Stack>

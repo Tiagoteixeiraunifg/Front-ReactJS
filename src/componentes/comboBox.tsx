@@ -28,7 +28,7 @@ export default function ComboBox(props: props) {
   React.useEffect(() => {
     names.splice(1, names.length);
     loadEstados();
-  })
+  },[props.disabled])
 
   const loadEstados = async () => {
     await fetch(baseURL)
