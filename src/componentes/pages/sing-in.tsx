@@ -14,21 +14,17 @@ import { ErrorMessage } from '../MainComponents';
 
 export const SingIn = () => {
 
-  
+
   const userLogin = useAppSelector(state => state.userLogin);
   const [error, setError] = useState("");
   const redirectUrl = useNavigate();
   const userStore = useDispatch();
    
-  useEffect(() => {
-    if(userLogin.logado){
-      userStore(setNome(userBd.nome));
-    }
-  },[userLogin.logado])
 
   function atualizaLogado(){
       userStore(setLogado(true));
   }
+
 
   const upReducerStore = () => {
     userStore(setId(userBd.id));
@@ -58,57 +54,34 @@ export const SingIn = () => {
     password: '',
   });
 
+
+  useEffect(() => {
+    if(userBd.id > 0){
+      atualizaLogado();
+      upReducerStore();
+      alertaMensagem();
+      redirectUrl('/');
+    }
+  },[userBd])
+ 
+
   const alertaMensagem = () => {
     alert("Bem vindo! " + userBd.nome + " " + userBd.sobrenome);
   }
 
-  const loginBanco = async (objLogin: userSingIn) => {
-  
-        const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(objLogin)
-        };
-        await fetch('http://localhost:8080/api/v1/user/auth', requestOptions)
-        
-        .then( response => {
-            return response.json();  
-        })
-        .then((json) => {
-          setUserBd(json.data);
-          console.log(json.data.toJSON());
-          atualizaLogado();
-          alertaMensagem();
-          redirectUrl('/');
-        })
-        .catch(error => {
-            setError(error.toString());
-            console.error('error!', error);
-        });
-}
-
+  console.log(userBd)
   const verifyOnDb = async () => {
-    let dado; 
     await apiAuth.post("/v1/user/auth", objUser)
     .then(json => {
-      dado = json.data;
-      console.log(json.data);
-      console.log(userBd)
-      setUserBd(dado)
-      atualizaLogado();
-      alertaMensagem();
-      redirectUrl('/');
+      setUserBd(json.data.data);
     })
     .catch((err) => {
-      if (err.response) {
-        if (err.response.status == 400) {
-          setError(err.response.message);
-          alert("Precisa preencher os dados corretamente");
-          return err;
+      if (err) {
+        if (err.response.status >= 400) {
+          setError("Usuário ou senha inválidos!");
         }
       }
-    })
-    return dado;
+    });
   }
 
 
@@ -117,9 +90,7 @@ export const SingIn = () => {
           setError("Digite Email e Senha!");
       }else{
         setError("");
-        loginBanco(objUser);
-        //setUserBd(verifyOnDb());
-        console.log(userBd);
+        verifyOnDb();
       }
   }
 
@@ -143,7 +114,7 @@ export const SingIn = () => {
             <Col>
               <Form>
                 <br />
-                { error &&
+                { error && 
                     <ErrorMessage>{error}</ErrorMessage>
                 }
                 <h3> <FontAwesomeIcon className='fa-xl' icon={faUserLock} /> ENTRAR NO SISTEMA</h3>

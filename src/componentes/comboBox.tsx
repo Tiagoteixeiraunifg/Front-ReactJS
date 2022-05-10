@@ -3,6 +3,10 @@ import {useState} from 'react'
 import { Theme, useTheme } from '@mui/material/styles';
 import {Estados} from '../types/Estados'
 import { FormSelect } from 'react-bootstrap';
+import { useAppSelector } from '../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { setEstado as setEstadoReducer, setFlagSelEstado} from '../redux/reducers/clientReducer'
+
 
 
 let names = ['Selecione'];
@@ -21,12 +25,16 @@ interface props {
 }
 
 export default function ComboBox(props: props) {
-
+  
+  const storeCliente = useAppSelector(state => state.clientReducer)
+  const usedispach = useDispatch();
+  
   const [estados, setEstado] = useState<Estados[]>([]);
   const baseURL = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
 
   React.useEffect(() => {
     names.splice(1, names.length);
+    usedispach(setFlagSelEstado(false));
     loadEstados();
   },[props.disabled])
 
@@ -46,17 +54,22 @@ export default function ComboBox(props: props) {
 
   const theme = useTheme();
   const [selectedEstado, setSelectedEstado] = React.useState<string>('Selecione');
-  
+
+
+  console.log(storeCliente.estado); 
   React.useEffect(() => {
-    alert(selectedEstado);
-  },[selectedEstado])
+    //para para o Store do cliente o estado aqui! // criar flag de estado selecionado para tratar o erro!
+    usedispach(setEstadoReducer(selectedEstado));
+    usedispach(setFlagSelEstado(true));
+    //alert(selectedEstado);
+  }, [selectedEstado])
 
   return (
         <FormSelect
           id="comboEstado"
           className="textbox"
           value={selectedEstado}
-          onChange={e => {setSelectedEstado(e.target.value); console.log(e.target.value)}} 
+          onChange={e => {setSelectedEstado(e.target.value);}}
           disabled={props.disabled}      
         >
           {names.map((name, index) => (

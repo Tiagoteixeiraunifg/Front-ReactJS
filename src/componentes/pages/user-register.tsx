@@ -160,7 +160,6 @@ export const SignUp = () => {
                         <div className="invalid-feedback" data-sb-feedback="confirmPassword:required">É requerido que confirme a senha.</div>
                     </Col>
                     </Row>
-
                     <Button variant="secondary" type="button" id="submitButton" onClick={submeter} >
                         Cadastrar
                     </Button>

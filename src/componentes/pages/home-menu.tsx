@@ -1,24 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Navbar, Container, Stack, Button } from 'react-bootstrap';
+import { Navbar, Container, Stack, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseChimney, faRightToBracket, faUserPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faHouseChimney, faRightToBracket, faUserPlus, faAddressCard, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from "../../redux/hooks/useAppSelector";
-
+import { useDispatch } from 'react-redux';
+import { setId, setNome, setSobrenome, setEmail, setPassword, setToken, setUserPerfil, setLogado } from '../../redux/reducers/userReducer';
 
 
 
 export const HomeMenu = () => {
-        
+
     const [nomeLogin, setNomeLogin] = useState("Login");
     const userLogin = useAppSelector(state => state.userLogin);
-    
+    const userStore = useDispatch();
 
-    
+
+    const logout = (flag: boolean) => {
+        if (flag) {
+            userStore(setId(0));
+            userStore(setNome(""));
+            userStore(setSobrenome(""));
+            userStore(setEmail(""));
+            userStore(setPassword(""));
+            userStore(setUserPerfil("USUARIO"));
+            userStore(setToken(""));
+            userStore(setLogado(false));
+        }
+    }
+
+
     const navegarPara = useNavigate();
 
     window.addEventListener("DOMContentLoaded", (event) => {
-        // Navbar shrink function
         var navbarShrink = function () {
             const navbarCollapsible = document.body.querySelector("#mainNav");
             if (!navbarCollapsible) {
@@ -34,7 +48,7 @@ export const HomeMenu = () => {
     });
 
     const handleNavegarCadCli = () => {
-        if (userLogin.logado) {
+        if (!userLogin.logado) {
             navegarPara("/sign-in");
             alert("Necessário acessar o sistema para cadastrar cliente!");
         } else {
@@ -66,7 +80,7 @@ export const HomeMenu = () => {
                     onClick={handleNavegarPrincipal}
                     name=""
                 >
-                    <FontAwesomeIcon  className='fa-xl' icon={faHouseChimney} />
+                    <FontAwesomeIcon className='fa-xl' icon={faHouseChimney} />
                 </Button>
                 <Button
                     className="navbar-toggler text-uppercase font-weight-bold bg-secondary text-white rounded color-nav"
@@ -82,7 +96,7 @@ export const HomeMenu = () => {
                 </Button>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto">
-                        <Stack direction="horizontal" gap={3}>      
+                        <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
                                 <Button
                                     type="button"
@@ -90,14 +104,14 @@ export const HomeMenu = () => {
                                     className="nav-link py-3 px-0 px-lg-3 rounded text-white"
                                     onClick={handleNavegarCadLogin}
                                 >
-                                <FontAwesomeIcon className='fa-xl pe-2' icon={faRightToBracket} />
+                                    <FontAwesomeIcon className='fa-xl pe-2' icon={faRightToBracket} />
                                     Entrar
                                 </Button>
                             </li>
                         </Stack>
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
-                                
+
                                 <Button
                                     type="button"
                                     variant="text"
@@ -124,9 +138,22 @@ export const HomeMenu = () => {
                         </Stack>
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
-                                <Navbar.Text className='text-white'>
-                                    Usuário logado: <a href="#" className='text-white ps-2'>{userLogin.nome}</a>
-                                </Navbar.Text>
+                                <Row className='text-white'>
+                                    <Col>
+                                        <p className='text-white ps-2'>Usuário logado: {userLogin.nome}</p>
+                                    </Col>
+                                    <Col>
+                                        <Button
+                                            type="button"
+                                            variant="text"
+                                            className="nav-link py-3 px-0 px-lg-3 rounded text-white"
+                                            disabled={!userLogin.logado}
+                                            onClick={() => { logout(true); alert("Saio do sistema!") }}>
+                                            <FontAwesomeIcon className='fa-xl pe-2' icon={faArrowRightFromBracket} />
+                                            Sair
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </li>
                         </Stack>
                     </ul>

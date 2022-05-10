@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Stack,
-} from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Stack,} from 'react-bootstrap';
 import ComboBox from '../comboBox';
 import {useNavigate}  from 'react-router-dom';
-
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { setId,  setNome,  setSobrenome,  setEmail,  setCpf,  setCelular,  setEndereco,  setNumero,  setComplemento, setCidade, setEstado, setCep, 
+    setEditando,  setSalvo,  setNovo} from '../../redux/reducers/clientReducer'
 
 
 export const PageCliente = () => {
+
+const userLogin = useAppSelector(state => state.userLogin);
+const clientReducer = useAppSelector(state => state.clientReducer);
+
+
+
+const [error, setError] = useState("");
+const userStore = useDispatch();
+
 
 const [habilitado, setHabilitado] = useState(true);
   
