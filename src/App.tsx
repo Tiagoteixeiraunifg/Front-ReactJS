@@ -1,15 +1,9 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { SingIn } from "./componentes/pages/sing-in";
-import { SignUp } from "./componentes/pages/user-register";
 import { HomeMenu } from "./componentes/pages/home-menu";
-import { HomePrincipal } from "./componentes/pages/home-principal"
 import { HomeFooter } from "./componentes/pages/home-footer";
-import { TabelaCliente } from "./componentes/pages/client-registered";
-import { PageCliente } from "./componentes/pages/clientRegister";
-
+import { RoutersSistema } from './Routers/RoutersSistema'
 
 function App() {
   return (
@@ -17,18 +11,7 @@ function App() {
       <HomeMenu />
       <div className="row py-5"></div>
       <div className="container">
-          <Routes>
-            <Route path="/" element={<HomePrincipal/>} /> 
-
-            <Route path="/cli-reg" element={<TabelaCliente/>} />
-
-            <Route path="/sign-in" element={<SingIn />} />
-
-            <Route path="/sign-up" element={<SignUp />} />
-
-            <Route path="/cad-cli" element={<PageCliente />} />
-
-          </Routes>
+            <RoutersSistema />
       </div>
       <div className="row py-3"></div>
       <HomeFooter />

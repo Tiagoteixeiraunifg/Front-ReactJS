@@ -92,7 +92,7 @@
   margin: 0;
   line-height: 1;
   padding-bottom: 20px;
-  text-shadow: 1px 5px 15px rgb(0 0 3 / 66%);
+  text-shadow: -1px 1.5px 4px rgba(36, 36, 170, 0.719);
 }
 .custom-control-label {
   font-weight: 400;

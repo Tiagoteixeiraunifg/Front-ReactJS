@@ -1,26 +1,27 @@
 import * as React from 'react';
 import {useState} from 'react'
 import { Theme, useTheme } from '@mui/material/styles';
-import {Estados} from '../types/Estados'
+import {Estados} from '../../types/Estados'
 import { FormSelect } from 'react-bootstrap';
-import { useAppSelector } from '../redux/hooks/useAppSelector';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
-import { setEstado as setEstadoReducer, setFlagSelEstado} from '../redux/reducers/clientReducer'
+import { setEstado as setEstadoReducer, setFlagSelEstado} from '../../redux/reducers/clientReducer'
 
 
 
 let names = ['Selecione'];
 
-function getStyles(name: string, personName: string[], theme: Theme) {
+function getStyles(name: string, estados: string[], theme: Theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+        estados.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
 interface props {
+  id: string;
   disabled: boolean;
 }
 
@@ -29,14 +30,40 @@ export default function ComboBox(props: props) {
   const storeCliente = useAppSelector(state => state.clientReducer)
   const usedispach = useDispatch();
   
+  const [selectedEstado, setSelectedEstado] = React.useState<string>();
   const [estados, setEstado] = useState<Estados[]>([]);
+  const [editando, setEditando] = useState<boolean>(storeCliente.editando);
+  const [click, setClick] = useState(false);
   const baseURL = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
 
+
+  const handleClick = (event: React.MouseEvent<HTMLSelectElement, MouseEvent>) => {
+    event.stopPropagation();
+    event.preventDefault();    
+    setClick(true);
+        setEditando(false);
+        console.log("clicou aqui")
+  }
+
+
   React.useEffect(() => {
-    names.splice(1, names.length);
-    usedispach(setFlagSelEstado(false));
-    loadEstados();
-  },[props.disabled])
+    if(!editando){
+      names.splice(0, names.length);
+      names.push('Selecione');
+      usedispach(setFlagSelEstado(false));
+      loadEstados();
+    }else{
+      names.splice(0, names.length);
+      setEstado([{ id: 1, nome: storeCliente.end_estado, sigla: "DF"}]);
+      setSelectedEstado(storeCliente.end_estado);
+      estados.map((item, index)=> {
+        names.push(item.nome);
+      })
+      console.log(names[0])
+      usedispach(setFlagSelEstado(true));
+    }
+  },[props.disabled && click])
+
 
   const loadEstados = async () => {
     await fetch(baseURL)
@@ -48,15 +75,13 @@ export default function ComboBox(props: props) {
      }).catch(() => alert("Erro ao obter lista de estados"));
   }
 
-  estados.map((item, index)=> {
-    names.push(item.nome);
-  })
+    estados.map((item, index)=> {
+      names.push(item.nome);
+    })
+
 
   const theme = useTheme();
-  const [selectedEstado, setSelectedEstado] = React.useState<string>('Selecione');
 
-
-  console.log(storeCliente.estado); 
   React.useEffect(() => {
     //para para o Store do cliente o estado aqui! // criar flag de estado selecionado para tratar o erro!
     usedispach(setEstadoReducer(selectedEstado));
@@ -66,10 +91,11 @@ export default function ComboBox(props: props) {
 
   return (
         <FormSelect
-          id="comboEstado"
+          id={props.id}
           className="textbox"
           value={selectedEstado}
           onChange={e => {setSelectedEstado(e.target.value);}}
+          onClick={handleClick}
           disabled={props.disabled}      
         >
           {names.map((name, index) => (

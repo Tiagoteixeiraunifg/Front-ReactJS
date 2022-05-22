@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Form, Col, Button, FormCheck } from 'react-bootstrap';
-import apiAuth from "../services/Api";
+import { Container, Row, Form, Col, Button, FormCheck, Spinner } from 'react-bootstrap';
+import apiAuth from "../../services/Api";
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserLock, faAt, faKey } from '@fortawesome/free-solid-svg-icons';
-import {userLogin, userSingIn} from '../../interfaces/userInterface';
+import {IUserLogin, IUserSingIn} from '../../interfaces/UserInterface';
 import { userLoginType } from '../../types/userLoginType';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ import { ErrorMessage } from '../MainComponents';
 export const SingIn = () => {
 
 
+  const [loading, setLoading] = useState(false);
   const userLogin = useAppSelector(state => state.userLogin);
   const [error, setError] = useState("");
   const redirectUrl = useNavigate();
@@ -24,7 +25,6 @@ export const SingIn = () => {
   function atualizaLogado(){
       userStore(setLogado(true));
   }
-
 
   const upReducerStore = () => {
     userStore(setId(userBd.id));
@@ -36,8 +36,6 @@ export const SingIn = () => {
     userStore(setToken(userBd.token));
   }
 
-  
-
   const [userBd, setUserBd] = React.useState<userLoginType>({
     id: 0,
     nome: '',
@@ -48,35 +46,29 @@ export const SingIn = () => {
     userperfil: '',
   });
 
-
-  const [objUser, setUser] = useState<userSingIn>({
+  const [objUser, setUser] = useState<IUserSingIn>({
     email: '',
     password: '',
   });
-
 
   useEffect(() => {
     if(userBd.id > 0){
       atualizaLogado();
       upReducerStore();
-      alertaMensagem();
       redirectUrl('/');
     }
   },[userBd])
  
-
-  const alertaMensagem = () => {
-    alert("Bem vindo! " + userBd.nome + " " + userBd.sobrenome);
-  }
-
-  console.log(userBd)
   const verifyOnDb = async () => {
+    setLoading(true);
     await apiAuth.post("/v1/user/auth", objUser)
     .then(json => {
       setUserBd(json.data.data);
+      setLoading(false);
     })
     .catch((err) => {
       if (err) {
+        setLoading(false);
         if (err.response.status >= 400) {
           setError("Usuário ou senha inválidos!");
         }
@@ -162,6 +154,15 @@ export const SingIn = () => {
                   type="button"
                   onClick={fazerLogin}
                 >
+                  {loading &&
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  }
                   Fazer Login
                 </Button>
 

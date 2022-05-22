@@ -6,17 +6,18 @@ export const slice = createSlice({
     initialState:{
        
         id: 0,
+        user: {id: 0},
         nome: "",
         sobrenome: "",
         cpf: "",
-        celular: "", 
+        telefone: "", 
         email: "",
-        endereco: "",
-        numero: "",
-        complemento: "",
-        cidade: "",
-        estado: "",
-        cep: "",
+        end_rua: "",
+        end_numero: "",
+        end_complemento: "",
+        end_cidade: "",
+        end_estado: "",
+        end_cep: "",
         editando: false,
         salvo: false,
         novo: false,
@@ -27,6 +28,9 @@ export const slice = createSlice({
 
         setId: (state, action) => {
             state.id = action.payload;
+        },
+        setIdUser: (state, action) => {
+            state.user.id = action.payload;
         },
         setNome: (state, action) => {
             state.nome = action.payload;
@@ -41,25 +45,25 @@ export const slice = createSlice({
             state.cpf = action.payload;
         },
         setCelular: (state, action) => {
-            state.celular = action.payload;
+            state.telefone = action.payload;
         },
         setEndereco: (state, action) => {
-            state.endereco = action.payload;
+            state.end_rua = action.payload;
         },        
         setNumero: (state, action) => {
-            state.numero = action.payload;
+            state.end_numero = action.payload;
         },
         setComplemento: (state, action) => {
-            state.complemento = action.payload;
+            state.end_complemento = action.payload;
         },
         setCidade: (state, action) => {
-            state.cidade = action.payload;
+            state.end_cidade = action.payload;
         },
         setEstado: (state, action) => {
-            state.estado = action.payload;
+            state.end_estado = action.payload;
         },
         setCep: (state, action) => {
-            state.cep = action.payload;
+            state.end_cep = action.payload;
         },
         setEditando: (state, action) => {
             state.editando = action.payload;
@@ -80,7 +84,8 @@ export const slice = createSlice({
 export default slice.reducer;
 
 export const {
-    setId, 
+    setId,
+    setIdUser, 
     setNome, 
     setSobrenome, 
     setEmail, 

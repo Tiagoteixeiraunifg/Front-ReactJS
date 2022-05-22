@@ -32,20 +32,7 @@ export const HomeMenu = () => {
 
     const navegarPara = useNavigate();
 
-    window.addEventListener("DOMContentLoaded", (event) => {
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector("#mainNav");
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove("navbar-shrink");
-            } else {
-                navbarCollapsible.classList.add("navbar-shrink");
-            }
-        };
-        navbarShrink();
-    });
+
 
     const handleNavegarCadCli = () => {
         if (!userLogin.logado) {
@@ -136,26 +123,28 @@ export const HomeMenu = () => {
                                 </Button>
                             </li>
                         </Stack>
-                        <Stack direction="horizontal" gap={3}>
-                            <li className="nav-item mx-0 mx-lg-1">
-                                <Row className='text-white'>
-                                    <Col>
-                                        <p className='text-white ps-2'>Usuário logado: {userLogin.nome}</p>
-                                    </Col>
-                                    <Col>
-                                        <Button
-                                            type="button"
-                                            variant="text"
-                                            className="nav-link py-3 px-0 px-lg-3 rounded text-white"
-                                            disabled={!userLogin.logado}
-                                            onClick={() => { logout(true); alert("Saio do sistema!") }}>
-                                            <FontAwesomeIcon className='fa-xl pe-2' icon={faArrowRightFromBracket} />
-                                            Sair
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </li>
-                        </Stack>
+                        {userLogin.logado &&
+                            <Stack direction="horizontal" gap={3}>
+                                <li className="nav-item mx-0 mx-lg-1">
+                                    <Row className='text-white'>
+                                        <Col>
+                                            <p className='text-white ps-2'>Usuário logado: {userLogin.nome}</p>
+                                        </Col>
+                                        <Col>
+                                            <Button
+                                                type="button"
+                                                variant="text"
+                                                className="nav-link py-3 px-0 px-lg-3 rounded text-white"
+                                                disabled={!userLogin.logado}
+                                                onClick={() => { logout(true); alert("Saiu do sistema!"); navegarPara("/"); }}>
+                                                <FontAwesomeIcon className='fa-xl pe-2' icon={faArrowRightFromBracket} />
+                                                Sair
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </li>
+                            </Stack>
+                        }
                     </ul>
                 </div>
             </Container>

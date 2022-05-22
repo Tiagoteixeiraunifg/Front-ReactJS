@@ -1,4 +1,4 @@
-export interface userLogin {
+export interface IUserLogin {
     email: string,
     id: number,
     nome: string,
@@ -8,7 +8,14 @@ export interface userLogin {
     userperfil: string,
 }
 
-export interface userSingIn {
+export interface IUserSingIn {
     email: string,
     password: string,
+}
+
+export interface IErros {
+
+    timestamp: string;
+    details: string;
+
 }
