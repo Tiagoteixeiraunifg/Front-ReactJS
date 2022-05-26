@@ -32,39 +32,54 @@ export default function ComboBox(props: props) {
   
   const [selectedEstado, setSelectedEstado] = React.useState<string>();
   const [estados, setEstado] = useState<Estados[]>([]);
-  const [editando, setEditando] = useState<boolean>(storeCliente.editando);
-  const [click, setClick] = useState(false);
+  const [editando, setEditando] = useState<boolean>(false);
+  const [click, setClick] = useState<boolean>(false);
   const baseURL = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
 
 
   const handleClick = (event: React.MouseEvent<HTMLSelectElement, MouseEvent>) => {
     event.stopPropagation();
-    event.preventDefault();    
+    event.preventDefault();
     setClick(true);
-        setEditando(false);
-        console.log("clicou aqui")
+    setEditando(false);
   }
 
+  React.useEffect(() => {
+    if(storeCliente.editando){
+      setEditando(true);
+    }else{
+      setEditando(false);
+    }
+  })
 
   React.useEffect(() => {
     if(!editando){
       names.splice(0, names.length);
       names.push('Selecione');
+      console.log('chegou aqui editando false');
       usedispach(setFlagSelEstado(false));
       loadEstados();
     }else{
       names.splice(0, names.length);
       setEstado([{ id: 1, nome: storeCliente.end_estado, sigla: "DF"}]);
       setSelectedEstado(storeCliente.end_estado);
-      estados.map((item, index)=> {
-        names.push(item.nome);
-      })
       console.log(names[0])
       usedispach(setFlagSelEstado(true));
     }
-  },[props.disabled && click])
+  },[click, editando])
 
-
+  if(editando){
+    names.splice(0, names.length);
+    estados.map((item, index)=> {
+      names.push(item.nome);
+    })
+  }else{
+    names.splice(1, names.length);
+    estados.map((item, index)=> {
+      names.push(item.nome);
+    })
+  }
+  
   const loadEstados = async () => {
     await fetch(baseURL)
     .then((res) => {
@@ -75,18 +90,15 @@ export default function ComboBox(props: props) {
      }).catch(() => alert("Erro ao obter lista de estados"));
   }
 
-    estados.map((item, index)=> {
-      names.push(item.nome);
-    })
-
 
   const theme = useTheme();
 
   React.useEffect(() => {
+    if(click){
+      usedispach(setEstadoReducer(selectedEstado));
+      usedispach(setFlagSelEstado(true));
+    }
     //para para o Store do cliente o estado aqui! // criar flag de estado selecionado para tratar o erro!
-    usedispach(setEstadoReducer(selectedEstado));
-    usedispach(setFlagSelEstado(true));
-    //alert(selectedEstado);
   }, [selectedEstado])
 
   return (

@@ -116,7 +116,7 @@ export const TabelaCliente: React.FC = () => {
         setIdClient(cliSelected.id);
         atualizaReducer(cliSelected);
         setEditDel(true);
-        setIndex("Cliente selecionado: "+cliSelected.nome + " " + cliSelected.sobrenome);
+        setIndex("Cliente selecionado: cod - " + cliSelected.id.toString() + " -" +cliSelected.nome + " " + cliSelected.sobrenome);
     }
 
     /**
@@ -152,6 +152,12 @@ export const TabelaCliente: React.FC = () => {
                                     <br />
                                     <h3>LISTAGEM DE CLIENTES CADASTRADOS</h3>
                                     <br />
+                                    <br />
+                                    { client &&
+                                        <>
+                                            <h5>Total de Clientes Cadastrados: {client.length}</h5>
+                                        </>
+                                    }
                                     {error &&
                                         <ErrorMessage>{error}</ErrorMessage>
                                     }
@@ -188,7 +194,7 @@ export const TabelaCliente: React.FC = () => {
                                     <Row>
                                         <Col>
                                             <Button
-                                                className='me-2'
+                                                className='m-2'
                                                 variant="secondary"
                                                 onClick={() => { listarClient(), setListando(true) }}
                                             >
@@ -204,7 +210,7 @@ export const TabelaCliente: React.FC = () => {
                                                 Listar</Button>
 
                                             <Button
-                                                className='me-2'
+                                                className='m-2'
                                                 variant="secondary"
                                                 disabled={!editDel}
                                                 onClick={() => {
@@ -216,14 +222,14 @@ export const TabelaCliente: React.FC = () => {
                                                 Editar</Button>
 
                                             <Button
-                                                className='me-2'
+                                                className='m-2'
                                                 variant="secondary"
                                                 disabled={!editDel}
                                             > Excluir
                                             </Button>
 
                                             <Button
-                                                className='me-2'
+                                                className='m-2'
                                                 variant="secondary"
                                                 type="button"
                                                 onClick={() =>

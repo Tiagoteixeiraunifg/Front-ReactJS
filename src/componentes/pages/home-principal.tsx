@@ -18,13 +18,13 @@ export const HomePrincipal = () => {
                             <br />
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h3>Tecnologias Usadas</h3></Card.Title>
+                                    <Card.Title><h4>Tecnologias</h4></Card.Title>
                                     <Card.Text>
                                         <p>Tecnologias utilizadas para o frontend; ReactJS, Typescript, Bootstrap, MaterialUI,
                                              Bootstrap Icons, FontAwesome Icons, React-Bootstrap.  </p>
                                         <br />
                                         <p>Tecnologias utilizadas para o backend; Java, Framwork Spring, Spring Boot, Spring MVC, Spring Data, Spring WEB, Spring Security,
-                                             Swagger 2, Flyway, Beam Validation, JWT, Lombook, ModelMapper, JDBC MySql, Maven.
+                                             Swagger 2, Flyway, Bean Validation, JWT, Lombook, ModelMapper, JDBC MySql, Maven.
                                              </p>
                                     </Card.Text>
   
@@ -33,7 +33,7 @@ export const HomePrincipal = () => {
                             <br />
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h3>Equipe e Projeto</h3></Card.Title>
+                                    <Card.Title><h4>Equipe e Projeto</h4></Card.Title>
                                     <Card.Text>
                                         <p>Equipe composta por Marco Alexandre e Tiago Teixeira</p>
                                         <br />

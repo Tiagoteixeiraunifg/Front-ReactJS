@@ -11,6 +11,21 @@ import { setId, setNome, setSobrenome, setEmail, setPassword, setToken, setUserP
 
 export const HomeMenu = () => {
 
+    window.addEventListener("DOMContentLoaded", (event) => {
+        var navbarShrink = function () {
+            const navbarCollapsible = document.body.querySelector("#mainNav");
+            if (!navbarCollapsible) {
+                return;
+            }
+            if (window.scrollY === 0) {
+                navbarCollapsible.classList.remove("navbar-shrink");
+            } else {
+                navbarCollapsible.classList.add("navbar-shrink");
+            }
+        };
+        navbarShrink();
+    });
+
     const [nomeLogin, setNomeLogin] = useState("Login");
     const userLogin = useAppSelector(state => state.userLogin);
     const userStore = useDispatch();
@@ -56,10 +71,10 @@ export const HomeMenu = () => {
     };
 
     return (
-        <Navbar bg="dark" expand="lg" fixed='top' id="mainNav"
-            className="navbar-light2 navbar-shrink"
+        <Navbar bg="dark" expand="lg" sticky='top' id="mainNav"
+            className="navbar-light2 navbar-shrink "
         >
-            <Container>
+            <Container fluid>
                 <Button
                     className="navbar-brand text-white"
                     type="button"
