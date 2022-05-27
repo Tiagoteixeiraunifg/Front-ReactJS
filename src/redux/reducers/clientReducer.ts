@@ -6,7 +6,7 @@ export const slice = createSlice({
     initialState:{
        
         id: 0,
-        user: {id: 0},
+        user: {id: 0, nome: ""},
         nome: "",
         sobrenome: "",
         cpf: "",
@@ -22,6 +22,7 @@ export const slice = createSlice({
         salvo: false,
         novo: false,
         selectedEstado: false,
+        excluir: false,
 
     },
     reducers: {
@@ -31,6 +32,9 @@ export const slice = createSlice({
         },
         setIdUser: (state, action) => {
             state.user.id = action.payload;
+        },
+        setNomeUser: (state, action) => {
+            state.user.nome = action.payload;
         },
         setNome: (state, action) => {
             state.nome = action.payload;
@@ -76,6 +80,9 @@ export const slice = createSlice({
         },
         setFlagSelEstado: (state, action) => {
             state.selectedEstado = action.payload;
+        },
+        setExcluir: (state, action) => {
+            state.excluir = action.payload;
         }
 
     }
@@ -85,7 +92,8 @@ export default slice.reducer;
 
 export const {
     setId,
-    setIdUser, 
+    setIdUser,
+    setNomeUser, 
     setNome, 
     setSobrenome, 
     setEmail, 
@@ -100,4 +108,5 @@ export const {
     setEditando, 
     setSalvo, 
     setNovo,
-    setFlagSelEstado} = slice.actions;
+    setFlagSelEstado,
+    setExcluir} = slice.actions;

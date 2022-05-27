@@ -56,7 +56,7 @@ export const PageCliente = () => {
 
   const [client, setCliente] = useState<IClient>({
     id: 0,
-    user: { id: userLogin.id },
+    user: { id: userLogin.id, nome: "" },
     nome: "",
     sobrenome: "",
     cpf: "",
@@ -79,7 +79,7 @@ export const PageCliente = () => {
       setCliente(
         {
           id: 0,
-          user: { id: userLogin.id },
+          user: { id: userLogin.id, nome: "" },
           nome: "",
           sobrenome: "",
           cpf: "",
@@ -104,7 +104,7 @@ export const PageCliente = () => {
       setCliente(
         {
           id: clientReducer.id,
-          user: { id: clientReducer.user.id },
+          user: { id: clientReducer.user.id, nome: clientReducer.user.nome },
           nome: clientReducer.nome,
           sobrenome: clientReducer.sobrenome,
           cpf: clientReducer.cpf,

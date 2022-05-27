@@ -7,10 +7,10 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
 import { setId,  setNome,  setSobrenome,  setEmail,  setCpf,  setCelular,
    setEndereco,  setNumero,  setComplemento, setCidade, setEstado, setCep, 
-   setSalvo as setSalvoR,  setNovo as setNovoR, setEditando, setIdUser} from '../../redux/reducers/clientReducer'
+   setSalvo as setSalvoR,  setNovo as setNovoR, setEditando, setIdUser, setNomeUser} from '../../redux/reducers/clientReducer'
 import apiAuth from "../../services/Api";
 import { AcceptMessage, ErrorMessage } from '../MainComponents';
-
+import {ModalConfirmDelClient} from '../modalCofirmDelClient';
 
 export const TabelaCliente: React.FC = () => {
     
@@ -20,7 +20,7 @@ export const TabelaCliente: React.FC = () => {
      */
     const userLogin = useAppSelector(state => state.userLogin);
     const clientReducer = useAppSelector(state => state.clientReducer);
-    const userStore = useDispatch();
+    const storeClient = useDispatch();
     const navegarPara = useNavigate();
 
     
@@ -30,10 +30,10 @@ export const TabelaCliente: React.FC = () => {
     const [idClient, setIdClient] = useState<number>();
     const [index, setIndex] = useState("");
     const [error, setError] = useState("");
-    const [listando, setListando] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [editDel, setEditDel] = useState(false);
-
+    const [listando, setListando] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [editDel, setEditDel] = useState<boolean>(false);
+    const [del, setDel] = useState<boolean>(false);
 
     /**
      * STATE COM A LISTA DE CLIENTES DO USUÁRIO LOGADO 
@@ -45,9 +45,7 @@ export const TabelaCliente: React.FC = () => {
        listarClient();
     }, [listando])
 
-
-
-
+    
     /**
      * METODO GET AXIOS PARA CARREGAR LISTA DE CLIENTES
      */
@@ -85,22 +83,23 @@ export const TabelaCliente: React.FC = () => {
      */
     const atualizaReducer = (cl: IClient) => {
 
-        userStore(setEditando(true));
-        userStore(setNovoR(false));
-        userStore(setSalvoR(true));
-        userStore(setId(cl.id));
-        userStore(setIdUser(cl.user.id));
-        userStore(setNome(cl.nome));  
-        userStore(setSobrenome(cl.sobrenome));
-        userStore(setCpf(cl.cpf));
-        userStore(setCelular(cl.telefone));
-        userStore(setEmail(cl.email));
-        userStore(setEndereco(cl.end_rua));
-        userStore(setComplemento(cl.end_complemento));
-        userStore(setCidade(cl.end_cidade));
-        userStore(setNumero(cl.end_numero));
-        userStore(setEstado(cl.end_estado));
-        userStore(setCep(cl.end_cep));
+        storeClient(setEditando(true));
+        storeClient(setNovoR(false));
+        storeClient(setSalvoR(true));
+        storeClient(setId(cl.id));
+        storeClient(setIdUser(cl.user.id));
+        storeClient(setNomeUser(cl.user.nome));
+        storeClient(setNome(cl.nome));  
+        storeClient(setSobrenome(cl.sobrenome));
+        storeClient(setCpf(cl.cpf));
+        storeClient(setCelular(cl.telefone));
+        storeClient(setEmail(cl.email));
+        storeClient(setEndereco(cl.end_rua));
+        storeClient(setComplemento(cl.end_complemento));
+        storeClient(setCidade(cl.end_cidade));
+        storeClient(setNumero(cl.end_numero));
+        storeClient(setEstado(cl.end_estado));
+        storeClient(setCep(cl.end_cep));
 
     }
 
@@ -116,8 +115,17 @@ export const TabelaCliente: React.FC = () => {
         setIdClient(cliSelected.id);
         atualizaReducer(cliSelected);
         setEditDel(true);
+        setDel(false);
         setIndex("Cliente selecionado: cod - " + cliSelected.id.toString() + " -" +cliSelected.nome + " " + cliSelected.sobrenome);
     }
+
+    /**
+     * FUNÇÃO QUE MUDA O STATE RESPONSAVEL POR LIBERAR O MODAL DE CONFIRMAÇÃO
+     */
+    const handleClickDel = () => {
+        setDel(true);
+    }
+
 
     /**
      * METODO PARA RENDERIZAR A TABELA
@@ -129,6 +137,7 @@ export const TabelaCliente: React.FC = () => {
            return (
             <tr key={index} onClick={(e) => { handleClick(e, index) }}>
             <td>{cl.id}</td>
+            <td>{cl.user.nome}</td>
             <td>{cl.nome}</td>
             <td>{cl.sobrenome}</td>
             <td>{cl.email}</td>
@@ -148,6 +157,10 @@ export const TabelaCliente: React.FC = () => {
                         <Col>
                             <Form>
                             <Row form>
+                            {del && 
+                                <ModalConfirmDelClient/>
+                            }
+                            
                             <br/>
                                     <br />
                                     <h3>LISTAGEM DE CLIENTES CADASTRADOS</h3>
@@ -170,11 +183,13 @@ export const TabelaCliente: React.FC = () => {
                                         responsive
                                         bordered
                                         hover
+                                        striped 
                                     >
 
                                     <thead>
                                         <tr>{/*cabeçalho da tabela*/}
                                             <th>Código</th>
+                                            <th>Usuário Cad.</th>
                                             <th>Nome</th>
                                             <th>Sobrenome</th>
                                             <th>Email</th>
@@ -225,6 +240,7 @@ export const TabelaCliente: React.FC = () => {
                                                 className='m-2'
                                                 variant="secondary"
                                                 disabled={!editDel}
+                                                onClick={() => handleClickDel()}
                                             > Excluir
                                             </Button>
 

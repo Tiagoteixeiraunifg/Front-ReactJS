@@ -5,6 +5,7 @@ export interface IClient {
     id: number;
     user:{
         id: number;
+        nome: string;
     }
     nome: string;
     sobrenome: string;
