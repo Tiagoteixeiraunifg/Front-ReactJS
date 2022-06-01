@@ -2,6 +2,8 @@ import React, { DetailedHTMLProps, useEffect, useState } from 'react';
 import apiAuth from "../../services/Api";
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Form, Col, Stack, Button, FormCheck, Spinner } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { IErros, IUserLogin } from '../../interfaces';
 import SelectUserPerfil from '../comboBox/selectUserPerfil';
 import { AcceptMessage, ErrorMessage } from '../MainComponents';
@@ -21,7 +23,9 @@ export const SignUp = () => {
 
 
     const [errors, setErrors] = useState<IErros>();
+    const [error, setError] = useState<string>();
     const [confirPassword, setConfirmPassword] = useState<string>();
+
 
     const [logado, setLogado] = useState<boolean>(false);
     const [updated, setUpdated] = useState<boolean>(false);
@@ -52,6 +56,7 @@ export const SignUp = () => {
             upUserStoreReducer();
         }
     }, [objUser])
+
 
     useEffect(() => {
         objUser.userperfil = userStore.userperfil;
@@ -99,16 +104,18 @@ export const SignUp = () => {
         if (objUser.password === confirPassword) {
             return true;
         } else {
+            setErrors({details: "Passwords divergentes", timestamp: Date.now().toString()});
             return false;
         }
     }
 
     const submeter = async () => {
         if (verificaPassword()) {
+            objUser.userperfil = "USUARIO";
             setLoading(true);
             await apiAuth.post("/v1/user", objUser)
                 .then((json) => {
-                    if (json.status == 200) {
+                    if (json.status == 201) {
                         setValue(json.data.data)
                         setLoading(false);
                         setAccept("Cadastrado com sucesso!");
@@ -125,9 +132,7 @@ export const SignUp = () => {
                         }
                     }
                 })
-        } else {
-            alert("Os passwords não conferem");
-        }
+        } 
     }
 
     const atualizar = async () => {
@@ -160,9 +165,7 @@ export const SignUp = () => {
                         }
                     }
                 })
-        } else {
-            alert("Os passwords não conferem");
-        }
+        } 
     }
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +207,6 @@ export const SignUp = () => {
                                             className="textbox"
                                             placeholder="Nome"
                                             name="nome"
-                                            data-sb-validations="required"
                                             id="name"
                                             onChange={handleInput}
                                             value={objUser.nome}
@@ -218,7 +220,6 @@ export const SignUp = () => {
                                             className="textbox"
                                             placeholder="Sobrenome"
                                             name="sobrenome"
-                                            data-sb-validations="required"
                                             id="sobrenome"
                                             onChange={handleInput}
                                             value={objUser.sobrenome}
@@ -231,7 +232,6 @@ export const SignUp = () => {
                                             className="textbox"
                                             placeholder="name@example.com"
                                             name="email"
-                                            data-sb-validations="required,email"
                                             id="email"
                                             onChange={handleInput}
                                             value={objUser.email}
@@ -244,7 +244,6 @@ export const SignUp = () => {
                                             className="textbox"
                                             placeholder="Digite a Senha"
                                             name="password"
-                                            data-sb-validations="required"
                                             id="password"
                                             onChange={handleInput}
                                             value={objUser.password}
@@ -257,7 +256,6 @@ export const SignUp = () => {
                                             className="textbox"
                                             placeholder="Digite a Senha"
                                             name="confirmPassword"
-                                            data-sb-validations="required"
                                             id="confirmPassword"
                                             onChange={handleInputCnfirmPass}
                                             value={confirPassword}
@@ -274,7 +272,8 @@ export const SignUp = () => {
                                         </Col>
                                     }
                                 </Row>
-                                <Button variant="secondary" className='me-2' type="button" onClick={submeter} >
+                                <Button variant="primary" className='me-2' type="button" onClick={submeter} >
+                                <FontAwesomeIcon className='fa-xl me-2' icon={faPlus} />
                                     {loading &&
                                         <Spinner
                                             as="span"
@@ -288,7 +287,8 @@ export const SignUp = () => {
                                 </Button>
                                 {
                                     logado &&
-                                    <Button variant="secondary" className='me-2' type="button" onClick={atualizar} >
+                                    <Button variant="success" className='me-2' type="button" onClick={atualizar} >
+                                        <FontAwesomeIcon className='fa-xl me-2' icon={faFloppyDisk} />
                                         {loadingUpdate &&
                                             <Spinner
                                                 as="span"

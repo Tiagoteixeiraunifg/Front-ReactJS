@@ -142,10 +142,12 @@ export const SingIn = () => {
 
                   </Col>
                 </Row>
-                <div className="form-check">
+                {/*
+                  <div className="form-check">
                   <FormCheck id='feConected' />
                   <label htmlFor='feConected' className='form-check-label' > Manter Contectado? </label>
                 </div>
+                */}
                 <br />
 
                 <Button
@@ -165,10 +167,12 @@ export const SingIn = () => {
                   }
                   Fazer Login
                 </Button>
-
-                <div className="forgot-password text-right">
+                {/* 
+                  <div className="forgot-password text-right">
                   Esqueceu a <a href="#">senha?</a>
                 </div>
+                */}
+                
               </Form>
             </Col>
           </Row>

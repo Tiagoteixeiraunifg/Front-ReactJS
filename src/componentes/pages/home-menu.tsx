@@ -70,6 +70,8 @@ export const HomeMenu = () => {
         navegarPara("/");
     };
 
+
+
     return (
         <Navbar bg="dark" expand="lg" sticky='top' id="mainNav"
             className="navbar-light2 navbar-shrink "
@@ -121,22 +123,29 @@ export const HomeMenu = () => {
                                     onClick={handleNavegarCadUser}
                                 >
                                     <FontAwesomeIcon className='fa-xl pe-2' icon={faUserPlus} />
-                                    Cadastre-se
+                                    {   userLogin.logado &&
+                                        "Painel do Usuario"
+                                    }
+                                    {!userLogin.logado && 
+                                        "Cadastre-se"
+                                    }
                                 </Button>
                             </li>
                         </Stack>
                         <Stack direction="horizontal" gap={3}>
-                            <li className="nav-item mx-0 mx-lg-1">
-                                <Button
-                                    type="button"
-                                    variant="text"
-                                    className="nav-link py-3 px-0 px-lg-3 rounded text-white"
-                                    onClick={handleNavegarCadCli}
-                                >
-                                    <FontAwesomeIcon className='fa-xl pe-2' icon={faAddressCard} />
-                                    Cadastro Cliente
-                                </Button>
-                            </li>
+                            {userLogin.logado &&
+                                <li className="nav-item mx-0 mx-lg-1">
+                                    <Button
+                                        type="button"
+                                        variant="text"
+                                        className="nav-link py-3 px-0 px-lg-3 rounded text-white"
+                                        onClick={handleNavegarCadCli}
+                                    >
+                                        <FontAwesomeIcon className='fa-xl pe-2' icon={faAddressCard} />
+                                        Cadastro Cliente
+                                    </Button>
+                                </li>
+                            }
                         </Stack>
                         {userLogin.logado &&
                             <Stack direction="horizontal" gap={3}>

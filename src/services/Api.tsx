@@ -5,7 +5,7 @@ import https from "https";
 import { useAppSelector } from '../redux/hooks/useAppSelector';
 
 const apiAuth = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: "http://54.205.225.72:8080/api",
     headers: {'Content-Type': 'application/json', 'Accept': '*/*'},
     responseType: 'json',
     responseEncoding: 'utf8',
