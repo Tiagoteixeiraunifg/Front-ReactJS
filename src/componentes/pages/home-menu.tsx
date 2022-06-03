@@ -124,7 +124,7 @@ export const HomeMenu = () => {
                                 >
                                     <FontAwesomeIcon className='fa-xl pe-2' icon={faUserPlus} />
                                     {   userLogin.logado &&
-                                        "Painel do Usuario"
+                                        "Painel do Usuário"
                                     }
                                     {!userLogin.logado && 
                                         "Cadastre-se"
