@@ -8,7 +8,7 @@ const apiAuth = axios.create({
     
     insecureHTTPParser: false,    
     withCredentials: false,
-    baseURL: "http://23.21.198.225/api",
+    baseURL: "https://api-spring-a3.herokuapp.com/api",
     headers: {'Content-Type': 'application/json', 'Accept': '*/*'},
     responseType: 'json',
     responseEncoding: 'utf8',
