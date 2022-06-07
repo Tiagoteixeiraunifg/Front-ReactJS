@@ -2,15 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Button,Form, Spinner } from 'react-bootstrap';
 import {useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faFloppyDisk, faUserPen, faTrashCan, faList, faRotate, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { IClient } from '../../interfaces';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
 import { setId,  setNome,  setSobrenome,  setEmail,  setCpf,  setCelular,
    setEndereco,  setNumero,  setComplemento, setCidade, setEstado, setCep, 
-   setSalvo as setSalvoR,  setNovo as setNovoR, setEditando, setIdUser, setNomeUser} from '../../redux/reducers/clientReducer'
+   setSalvo as setSalvoR,  setNovo as setNovoR, setEditando, setIdUser, setNomeUser, setExcluir, setCancExcluir} from '../../redux/reducers/clientReducer'
 import apiAuth from "../../services/Api";
 import { AcceptMessage, ErrorMessage } from '../MainComponents';
 import {ModalConfirmDelClient} from '../modalCofirmDelClient';
+import { Errors } from '../../types/Erros';
 
 export const TabelaCliente: React.FC = () => {
     
@@ -30,10 +33,15 @@ export const TabelaCliente: React.FC = () => {
     const [idClient, setIdClient] = useState<number>();
     const [index, setIndex] = useState("");
     const [error, setError] = useState("");
+    const [falha, setFalha] = useState<boolean>(false);
     const [listando, setListando] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [editDel, setEditDel] = useState<boolean>(false);
     const [del, setDel] = useState<boolean>(false);
+    const [errors, setErrors] = useState<Errors>({
+        timestamp: "",
+        details: "",
+      });
 
     /**
      * STATE COM A LISTA DE CLIENTES DO USUÁRIO LOGADO 
@@ -45,7 +53,16 @@ export const TabelaCliente: React.FC = () => {
        listarClient();
     }, [listando])
 
-    
+    useEffect(() => {
+        if(del && clientReducer.excluir){
+            delClient(clientReducer.id);
+            setDel(false);
+            clearReducerClient(); 
+            setListando(true); 
+        }
+    },[clientReducer.excluir])
+
+
     /**
      * METODO GET AXIOS PARA CARREGAR LISTA DE CLIENTES
      */
@@ -58,8 +75,10 @@ export const TabelaCliente: React.FC = () => {
                 setCliente(response.data.data);
                 setLoading(false);
                 setListando(false);
+                setFalha(false);
             }else if(response.status === 201){
                 setError('Usuário sem clientes cadastrados!');
+                setFalha(false);
                 setLoading(false);
                 setListando(false);
             }
@@ -71,11 +90,13 @@ export const TabelaCliente: React.FC = () => {
                 if(err.response.status === 401){
                     setError(err.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");                    
                 }else if(err.response.status === 400){
-                    
+                    setFalha(true);
+                    setErrors(err.response.data.errors);
                 }
         })
 
     }
+
 
     /**
      * ATUALIZAÇÃO DO REDUCER PARA EDIÇÃO DO CLIENTE SELECIONADO NA LISTA
@@ -86,6 +107,8 @@ export const TabelaCliente: React.FC = () => {
         storeClient(setEditando(true));
         storeClient(setNovoR(false));
         storeClient(setSalvoR(true));
+        storeClient(setExcluir(false));
+        storeClient(setCancExcluir(false));
         storeClient(setId(cl.id));
         storeClient(setIdUser(cl.user.id));
         storeClient(setNomeUser(cl.user.nome));
@@ -103,6 +126,54 @@ export const TabelaCliente: React.FC = () => {
 
     }
 
+    /**
+     * FUNÇÃO PARA RESETAR AO ESTADO INICIAL O REDUCER
+     */
+    const clearReducerClient = () => {
+        
+        storeClient(setEditando(false));
+        storeClient(setNovoR(false));
+        storeClient(setSalvoR(false));
+        storeClient(setExcluir(false));
+        storeClient(setId(0));
+        storeClient(setIdUser(0));
+        storeClient(setNomeUser(""));
+        storeClient(setNome(""));  
+        storeClient(setSobrenome(""));
+        storeClient(setCpf(""));
+        storeClient(setCelular(""));
+        storeClient(setEmail(""));
+        storeClient(setEndereco(""));
+        storeClient(setComplemento(""));
+        storeClient(setCidade(""));
+        storeClient(setNumero(""));
+        storeClient(setEstado(""));
+        storeClient(setCep(""));
+    }
+
+    /**
+     * FUNÇÃO PARA DELETAR O CLIENTE A PARTIR DO ID
+     * @param idClient 
+     */
+    const delClient = async (idClient: number) => {
+        
+        await apiAuth.delete('/v1/clientes/'+ idClient, { headers: {'Content-Type': 'application/json', 'Accept': '*/*',
+        'Authorization': `Bearer ${userLogin.token}`}})
+        .then((response) => {
+            if(response.status == 204){
+                setFalha(false);
+                setIndex('Cliente Deletado!');
+            }
+        }).catch((err) => {
+            if(err.response.status === 401){
+                setError(err.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");                    
+            }else if(err.response.status === 400){
+                setFalha(true);
+                setErrors(err.response.data.errors);
+            }
+        })
+
+    }
     
     /**
      * FUNÇÃO DE CLICK NA LINHA DA TABELA
@@ -116,7 +187,7 @@ export const TabelaCliente: React.FC = () => {
         atualizaReducer(cliSelected);
         setEditDel(true);
         setDel(false);
-        setIndex("Cliente selecionado: cod - " + cliSelected.id.toString() + " -" +cliSelected.nome + " " + cliSelected.sobrenome);
+        setIndex("Cliente selecionado: cod - " + cliSelected.id.toString() + " - " +cliSelected.nome + " " + cliSelected.sobrenome);
     }
 
     /**
@@ -171,7 +242,10 @@ export const TabelaCliente: React.FC = () => {
                                             <h5>Total de Clientes Cadastrados: {client.length}</h5>
                                         </>
                                     }
-                                    {error &&
+                                    {errors && falha &&
+                                        <ErrorMessage>{errors.details}</ErrorMessage>
+                                    }
+                                    {error && 
                                         <ErrorMessage>{error}</ErrorMessage>
                                     }
                                     {
@@ -209,6 +283,7 @@ export const TabelaCliente: React.FC = () => {
                                     <Row>
                                         <Col>
                                             <Button
+                                                type='button'
                                                 className='m-2'
                                                 variant="secondary"
                                                 onClick={() => { listarClient(), setListando(true) }}
@@ -222,9 +297,12 @@ export const TabelaCliente: React.FC = () => {
                                                         aria-hidden="true"
                                                     />
                                                 }
-                                                Listar</Button>
+                                            <FontAwesomeIcon className='fa-xl me-2' icon={faRotate}/>
+                                                Listar
+                                            </Button>
 
                                             <Button
+                                                type='button'
                                                 className='m-2'
                                                 variant="secondary"
                                                 disabled={!editDel}
@@ -234,14 +312,19 @@ export const TabelaCliente: React.FC = () => {
                                                     }
                                                 }}
                                             >
-                                                Editar</Button>
+                                            <FontAwesomeIcon className='fa-xl me-2' icon={faUserPen} />
+                                                Editar
+                                            </Button>
 
                                             <Button
                                                 className='m-2'
-                                                variant="secondary"
+                                                type='button'
+                                                variant="danger"
                                                 disabled={!editDel}
                                                 onClick={() => handleClickDel()}
-                                            > Excluir
+                                            > 
+                                            <FontAwesomeIcon className='fa-xl me-2' icon={faTrashCan} />
+                                                Excluir
                                             </Button>
 
                                             <Button
@@ -250,7 +333,9 @@ export const TabelaCliente: React.FC = () => {
                                                 type="button"
                                                 onClick={() =>
                                                     navegarPara('/cad-cli')}
-                                            > Voltar
+                                            >
+                                            <FontAwesomeIcon className='fa-xl me-2' icon={faLeftLong} />    
+                                                 Voltar
                                             </Button>
                                         </Col>
                                     </Row>

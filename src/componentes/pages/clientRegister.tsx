@@ -4,15 +4,17 @@ import ComboBox from '../comboBox/comboBox';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
-import {
-  setId, setNome, setSobrenome, setEmail, setCpf, setCelular,
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faFloppyDisk, faUserPen, faTrashCan, faList } from '@fortawesome/free-solid-svg-icons';
+import {  setId, setNome, setSobrenome, setEmail, setCpf, setCelular,
   setEndereco, setNumero, setComplemento, setCidade, setEstado, setCep,
-  setSalvo as setSalvoR, setNovo as setNovoR, setEditando as setEditandoR
+  setSalvo as setSalvoR, setNovo as setNovoR, setEditando as setEditandoR, setExcluir as setExcluirR, setIdUser, setCancExcluir
 } from '../../redux/reducers/clientReducer'
 import apiAuth from "../../services/Api";
 import { IClient } from '../../interfaces';
 import { ErrorMessage, AcceptMessage } from '../MainComponents';
 import { Errors } from "../../types/Erros";
+import { ModalConfirmDelClient } from "../modalCofirmDelClient";
 
 
 
@@ -24,7 +26,7 @@ export const PageCliente = () => {
 
   const userLogin = useAppSelector(state => state.userLogin);
   const clientReducer = useAppSelector(state => state.clientReducer);
-  const userStore = useDispatch();
+  const storeClient = useDispatch();
 
   /**
    * flags de ação do Formulário
@@ -39,6 +41,7 @@ export const PageCliente = () => {
   const [editando, setEditando] = useState<boolean>(false);
   const [gravar, setGravar] = useState<boolean>(false);
   const [excluir, setExcluir] = useState<boolean>(false);
+  const [del, setDel] = useState<boolean>(false);
   const [loadingexcluir, setLoadingExcluir] = useState<boolean>(false);
 
 
@@ -73,7 +76,6 @@ export const PageCliente = () => {
   /**
    * Função para iniciar o State com valores padrões
    */
-
   const clearStateClient = () => {
     if (novo) {
       setCliente(
@@ -121,7 +123,9 @@ export const PageCliente = () => {
     }
   }
 
-
+  /**
+   * Effect que controla o estado do formulario ao salvar ou editar o cliente
+   */
   useEffect(() => {
     if (client.id > 0 && clientReducer.novo) {
 
@@ -143,7 +147,9 @@ export const PageCliente = () => {
     }
   }, [client])
 
-
+  /**
+   * Effect que controla o estado do formulario quando esta em edição do cliente
+   */
   useEffect(() => {
 
     if (clientReducer.editando) {
@@ -159,26 +165,77 @@ export const PageCliente = () => {
   }, [clientReducer.editando])
 
   /**
+   * Effect que controla a ação de cancelar no modal
+   */
+  useEffect(() => {
+    if(del){
+      if(clientReducer.cancExcluir){
+        setDel(false);
+        storeClient(setCancExcluir(false));
+      }
+    }
+  },[clientReducer.cancExcluir])
+
+  /**
+   * Effect  que conclui a exclusão do cliente
+   */
+  useEffect(() => {
+    if(clientReducer.excluir){
+        setHabilitado(true);
+        setNovo(true);
+        delClient(clientReducer.id);
+        clearReducerClient();
+        setEditando(false);
+        setExcluir(false);
+        setGravar(false);
+    }
+  },[clientReducer.excluir])
+
+
+  /**
    * Função para atualizar o Reducer com o cliente recem cadastrado
    */
-
   const atualizaReducer = () => {
 
-    userStore(setNovoR(novo));
-    userStore(setSalvoR(salvo));
-    userStore(setId(client.id));
-    userStore(setNome(client.nome));
-    userStore(setSobrenome(client.sobrenome));
-    userStore(setCpf(client.cpf));
-    userStore(setCelular(client.telefone));
-    userStore(setEmail(client.email));
-    userStore(setEndereco(client.end_rua));
-    userStore(setComplemento(client.end_complemento));
-    userStore(setCidade(client.end_cidade));
-    userStore(setNumero(client.end_numero));
-    userStore(setEstado(client.end_estado));
-    userStore(setCep(client.end_cep));
+    storeClient(setNovoR(novo));
+    storeClient(setSalvoR(salvo));
+    storeClient(setId(client.id));
+    storeClient(setNome(client.nome));
+    storeClient(setSobrenome(client.sobrenome));
+    storeClient(setCpf(client.cpf));
+    storeClient(setCelular(client.telefone));
+    storeClient(setEmail(client.email));
+    storeClient(setEndereco(client.end_rua));
+    storeClient(setComplemento(client.end_complemento));
+    storeClient(setCidade(client.end_cidade));
+    storeClient(setNumero(client.end_numero));
+    storeClient(setEstado(client.end_estado));
+    storeClient(setCep(client.end_cep));
 
+  }
+
+  /**
+  * FUNÇÃO PARA RESETAR AO ESTADO INICIAL O REDUCER
+  */
+  const clearReducerClient = () => {
+        
+        storeClient(setEditandoR(false));
+        storeClient(setNovoR(false));
+        storeClient(setSalvoR(false));
+        storeClient(setExcluirR(false));
+        storeClient(setId(0));
+        storeClient(setIdUser(0));
+        storeClient(setNome(""));  
+        storeClient(setSobrenome(""));
+        storeClient(setCpf(""));
+        storeClient(setCelular(""));
+        storeClient(setEmail(""));
+        storeClient(setEndereco(""));
+        storeClient(setComplemento(""));
+        storeClient(setCidade(""));
+        storeClient(setNumero(""));
+        storeClient(setEstado(""));
+        storeClient(setCep(""));
   }
 
   /**
@@ -213,7 +270,6 @@ export const PageCliente = () => {
   /**
    * Posta novo cliente para o usuário logado no sistema.
    */
-
   const post = async () => {
     setLoading(true);
     apiAuth.post('/v1/clientes', client, {
@@ -279,6 +335,38 @@ export const PageCliente = () => {
   }
 
 
+ /**
+ * FUNÇÃO PARA DELETAR O CLIENTE A PARTIR DO ID
+ * @param idClient 
+ */
+  const delClient = async (idClient: number) => {
+    setLoadingExcluir(true);
+    await apiAuth.delete('/v1/clientes/' + idClient, {
+      headers: {
+        'Content-Type': 'application/json', 'Accept': '*/*',
+        'Authorization': `Bearer ${userLogin.token}`
+      }
+    })
+      .then((response) => {
+        setLoadingExcluir(false);
+        if (response.status == 204) {
+          setSucess('Cliente Deletado!');
+          setSalvo(true);
+          setFalha(false);
+          setDel(false);
+        }
+      }).catch((err) => {
+        setLoadingExcluir(false);
+        if (err.response.status === 401) {
+          setError(err.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");
+        } else if (err.response.status === 400) {
+          setFalha(true);
+          setErrors(err.response.data.errors);
+        }
+      })
+
+  }
+
   const saveClient = () => {
     if (upState() && clientReducer.novo) {
       post();
@@ -296,6 +384,9 @@ export const PageCliente = () => {
             <Col>
               <Form>
                 <Stack >
+                  {del &&
+                    <ModalConfirmDelClient />
+                  }
                   <br />
                   <h3> CADASTRO DE CLIENTES </h3>
                   <br />
@@ -467,20 +558,20 @@ export const PageCliente = () => {
                   <Col>
                     <Button
                       className='m-1'
-                      variant="secondary"
+                      variant="primary"
                       type="button"
                       disabled={!novo}
                       onClick={() => {
                         clearStateClient();
                         setHabilitado(false);
-                        userStore(setNovoR(true));
+                        storeClient(setNovoR(true));
                         setNovo(false);
                         setEditando(false);
                         setGravar(true);
                         setSalvo(false);
                         setExcluir(false);
                       }} >
-
+                    <FontAwesomeIcon className='fa-xl me-2' icon={faPlus} />    
                       Novo
                     </Button>
 
@@ -491,22 +582,23 @@ export const PageCliente = () => {
                       disabled={!editando}
                       onClick={() => {
                         setHabilitado(false);
-                        userStore(setNovoR(false));
-                        userStore(setEditandoR(true));
+                        storeClient(setNovoR(false));
+                        storeClient(setEditandoR(true));
                         setNovo(false);
                         setSalvo(false);
                         clearStateClient();
                       }} >
-
+                      <FontAwesomeIcon className='fa-xl me-2' icon={faUserPen} />  
                       Editar
                     </Button>
 
                     <Button
                       className='m-1'
-                      variant="secondary"
+                      variant="success"
                       type="button"
                       onClick={saveClient}
                       disabled={!gravar}>
+                      <FontAwesomeIcon className='fa-xl me-2' icon={faFloppyDisk} />
                       {loading &&
                         <Spinner
                           as="span"
@@ -521,10 +613,11 @@ export const PageCliente = () => {
 
                     <Button
                       className='m-1'
-                      variant="secondary"
+                      variant="danger"
                       type="button"
-                      onClick={() => { }}
+                      onClick={() => {setDel(true);}}
                       disabled={!excluir}>
+                      <FontAwesomeIcon className='fa-xl me-2' icon={faTrashCan} />
                       {loadingexcluir &&
                         <Spinner
                           as="span"
@@ -545,6 +638,7 @@ export const PageCliente = () => {
                         navegarPara('/cli-reg')
                       }
                     >
+                      <FontAwesomeIcon className='fa-xl me-2' icon={faList} />
                       Listar
                     </Button>
                   </Col>

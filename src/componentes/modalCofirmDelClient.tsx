@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Modal, } from 'react-bootstrap'
 import { useAppSelector } from '../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
-import { setExcluir } from '../redux/reducers/clientReducer'
+import { setCancExcluir, setEditando, setExcluir } from '../redux/reducers/clientReducer'
 
 export const ModalConfirmDelClient = () => {
 
@@ -12,7 +12,7 @@ export const ModalConfirmDelClient = () => {
     const alterStoreClient = useDispatch();
 
     const [show, setShow] = useState<boolean>(true);
-    const offModal = () => {setShow(false);};
+    const offModal = () => {alterStoreClient(setCancExcluir(true)); setShow(false);};
     const excluir = () => {alterStoreClient(setExcluir(true)); offModal();};
 
     return(

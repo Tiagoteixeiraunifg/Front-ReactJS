@@ -23,6 +23,7 @@ export const slice = createSlice({
         novo: false,
         selectedEstado: false,
         excluir: false,
+        cancExcluir: false,
 
     },
     reducers: {
@@ -83,6 +84,9 @@ export const slice = createSlice({
         },
         setExcluir: (state, action) => {
             state.excluir = action.payload;
+        },
+        setCancExcluir: (state, action) => {
+            state.cancExcluir = action.payload;
         }
 
     }
@@ -109,4 +113,4 @@ export const {
     setSalvo, 
     setNovo,
     setFlagSelEstado,
-    setExcluir} = slice.actions;
+    setExcluir,setCancExcluir} = slice.actions;
