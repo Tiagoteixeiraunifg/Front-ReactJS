@@ -97,6 +97,11 @@ export const SingIn = () => {
     });
   }
 
+  const nandleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if(event.key === 'Enter') {
+        fazerLogin();
+      }
+  }
 
   return (
     <div className="auth-wrapper">
@@ -136,6 +141,7 @@ export const SingIn = () => {
                       id='fePassword'
                       type="password"
                       onChange={handleInput}
+                      onKeyDown={nandleEnter}
                       className="textbox"
                       required
                     />
@@ -149,10 +155,11 @@ export const SingIn = () => {
                 </div>
                 */}
                 <br />
-
-                <Button
-                  variant="secondary"
-                  size="lg"
+                <Row form>
+                  <Col md="12" className="form-group d-grid gap-2">
+                  <Button
+                  variant="primary"
+                  size='lg'
                   type="button"
                   onClick={fazerLogin}
                 >
@@ -167,6 +174,9 @@ export const SingIn = () => {
                   }
                   Fazer Login
                 </Button>
+                  </Col>
+                </Row>  
+
                 {/* 
                   <div className="forgot-password text-right">
                   Esqueceu a <a href="#">senha?</a>

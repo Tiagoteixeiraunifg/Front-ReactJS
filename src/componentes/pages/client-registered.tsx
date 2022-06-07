@@ -331,8 +331,7 @@ export const TabelaCliente: React.FC = () => {
                                                 className='m-2'
                                                 variant="secondary"
                                                 type="button"
-                                                onClick={() =>
-                                                    navegarPara('/cad-cli')}
+                                                onClick={() => {navegarPara('/cad-cli'); clearReducerClient();} }
                                             >
                                             <FontAwesomeIcon className='fa-xl me-2' icon={faLeftLong} />    
                                                  Voltar

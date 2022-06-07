@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Button, Col, Image, Row, Card, Carousel } from 'react-bootstrap';
-import { carrouselTecnologias } from '../carrouselHome';
 
 
 export const HomePrincipal = () => {
@@ -10,15 +9,17 @@ export const HomePrincipal = () => {
         <div className="auth-wrapper">
             <div className="auth-inner-cli">
                 <Container className="mb-8">
-                    <Row form>
+                    <Row form className="row py-3">
                         <Col>
-                            <h1> Olá seja bem vindo em nosso projeto!  </h1>
+                            <h1> Olá seja bem vindo ao nosso projeto!  </h1>
                         </Col>
                     </Row>
                     <Row form>
-                        <Col>
-                            <br />
-                            <Carousel fade className="carrousel">
+                        <Col md="6" className="form-group">
+                        <Card>
+                            <Card.Body>
+                                    <Card.Title><h3>Logomarcas</h3></Card.Title>
+                                    <Carousel fade className="carrousel">
                                 {/*SPRING*/}
                                 <Carousel.Item>
                                     <img
@@ -26,9 +27,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoSpringBoot.png"
                                         alt="Spring"
                                     />
-                                    <Carousel.Caption>
-                                        <p className='text-black'>O Spring é um framework open source para a plataforma Java criado por Rod Johnson</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                                 {/*JAVA */}
                                 <Carousel.Item>
@@ -37,9 +35,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoJava.jpg"
                                         alt="Java"
                                     />
-                                    <Carousel.Caption>
-                                        <p className='text-black'>Java é uma linguagem de programação orientada a objetos desenvolvida na década de 90</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
 
                                 {/*AWS AMPLIFY */}
@@ -49,10 +44,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoAwsAmplify.jpg"
                                         alt="AwsAmplify"
                                     />
-                                    <Carousel.Caption>
-                                        <p className='text-black'>O AWS Amplify é um conjunto de ferramentas e recursos especialmente
-                                         desenvolvidos que permite que desenvolvedores frontend para plataformas móveis e Web</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                                 {/*AWS RDS */}
                                 <Carousel.Item>
@@ -61,10 +52,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoAwsRDS.png"
                                         alt="Java"
                                     />
-                                    <Carousel.Caption>
-                                        <p className='text-black'>O Amazon Relational Database Service (RDS) é uma coleção de 
-                                        serviços gerenciados que facilita a configuração, operação e escalabilidade de bancos de dados</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                                 {/*REACT JS*/}
                                 <Carousel.Item>
@@ -73,9 +60,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoReact.png"
                                         alt="ReactJS"
                                     />
-                                    <Carousel.Caption>
-                                        <p className='text-black'>Uma biblioteca JavaScript para criar interfaces de usuário</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                                 {/*TYPESCRIPT */}
                                 <Carousel.Item>
@@ -84,11 +68,6 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoTypescript.png"
                                         alt="Typescript"
                                     />
-
-                                    <Carousel.Caption>
-                                        <p className='text-black'>TypeScript é uma linguagem de programação fortemente tipada que se
-                                            baseia em JavaScript.</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                                 {/*Bootstrap*/}
                                 <Carousel.Item>
@@ -97,16 +76,21 @@ export const HomePrincipal = () => {
                                         src="https://images-sistema-a3.s3.amazonaws.com/logoBootstrap.png"
                                         alt="Bootstrap"
                                     />
-
-                                    <Carousel.Caption>
-                                        <p className='text-black'>Kit de ferramentas de front-end poderoso, extensível e repleto de recursos</p>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                             </Carousel>
-                            <br />
+                                    <Card.Text>
+                                        <p>Tecnologias usadas pra o desenvolvimento do projeto A3</p>
+                                        <br />
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+
+                        </Col>
+                        <br />
+                        <Col md="6" className="form-group">
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h4>Tecnologias</h4></Card.Title>
+                                    <Card.Title><h3>Desenvolvimento Utilizando</h3></Card.Title>
                                     <Card.Text>
                                         <p>Tecnologias utilizadas para o frontend; ReactJS, Typescript, Bootstrap, MaterialUI,
                                             Bootstrap Icons, FontAwesome Icons, React-Bootstrap.  </p>
@@ -114,14 +98,18 @@ export const HomePrincipal = () => {
                                         <p>Tecnologias utilizadas para o backend; Java, Framwork Spring, Spring Boot, Spring MVC, Spring Data, Spring WEB, Spring Security,
                                             Swagger 2, Flyway, Bean Validation, JWT, Lombook, ModelMapper, JDBC MySql, Maven.
                                         </p>
+                                        <br />
                                     </Card.Text>
-
                                 </Card.Body>
                             </Card>
+                        </Col>
+                    </Row>   
+                    <Row form> 
+                        <Col>
                             <br />
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h4>Equipe e Projeto</h4></Card.Title>
+                                    <Card.Title><h3>Equipe e Projeto</h3></Card.Title>
                                     <Card.Text>
                                         <p>Equipe composta por Marco Alexandre e Tiago Teixeira</p>
                                         <br />
