@@ -59,7 +59,9 @@ export const SignUp = () => {
 
 
     useEffect(() => {
-        objUser.userperfil = userStore.userperfil;
+        if(userStore.userperfil == "ADMIN" || userStore.userperfil == "USUARIO"){
+            objUser.userperfil = userStore.userperfil;
+        }
     }, [userStore.userperfil])
 
 
@@ -79,6 +81,7 @@ export const SignUp = () => {
     }
 
     const upUserStoreReducer = () => {
+        
         alteraStore(setId(objUser.id));
         alteraStore(setNome(objUser.nome));
         alteraStore(setSobrenome(objUser.sobrenome));
@@ -86,6 +89,7 @@ export const SignUp = () => {
         alteraStore(setPassword(objUser.password));
         alteraStore(setUserPerfil(objUser.userperfil));
         alteraStore(setToken(objUser.token));
+
     }
 
     const clearObjUser = () => {
@@ -109,8 +113,17 @@ export const SignUp = () => {
         }
     }
 
+    const verificaPerfil = () => {
+        if (objUser.userperfil === "ADMIN") {
+            return true;
+        } else if (objUser.userperfil === ""){
+            setErrors({details: "Selecionar o perfil por favor", timestamp: Date.now().toString()});
+            return false;
+        }
+    }
+
     const submeter = async () => {
-        if (verificaPassword()) {
+        if (verificaPassword() ) {
             objUser.userperfil = "USUARIO";
             setLoading(true);
             await apiAuth.post("/v1/user", objUser)
@@ -136,7 +149,7 @@ export const SignUp = () => {
     }
 
     const atualizar = async () => {
-        if (verificaPassword()) {
+        if (verificaPassword() && verificaPerfil()) {
             setLoadingUpdate(true);
             await apiAuth.put("/v1/users", objUser, {
                 headers: {
