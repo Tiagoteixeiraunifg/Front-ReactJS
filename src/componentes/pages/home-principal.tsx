@@ -11,7 +11,7 @@ export const HomePrincipal = () => {
                 <Container className="mb-8">
                     <Row form className="row py-3">
                         <Col>
-                            <h1> Olá seja bem vindo ao nosso projeto!  </h1>
+                            <h1> Olá, seja bem vindo ao nosso projeto!  </h1>
                         </Col>
                     </Row>
                     <Row form>
