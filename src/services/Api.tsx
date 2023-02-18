@@ -3,7 +3,8 @@ import axios from "axios";
 import http from "http";
 import https from "https";
 
-
+//baseURL: "http://localhost:80/api",
+//baseURL: "https://api-spring-a3.herokuapp.com/api",
 const apiAuth = axios.create({
     
     insecureHTTPParser: false,    

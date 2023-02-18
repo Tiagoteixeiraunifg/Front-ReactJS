@@ -132,7 +132,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                         alignItems="flex-start"
                         paddingTop={0}
                     >
-                        <h3>Cadastro do Cliente - olá usuário: {login.email}</h3>
+                        <h3>Cadastro do Cliente - olá usuário: {login.email.toUpperCase()}</h3>
                         <div>
                             <Button
                                 type="button"
@@ -153,7 +153,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                                 id="inputEmail4"
                                 label="Primeiro Nome"
                                 onChange={handleInput}
-                                value={objcliente.primeiroNome}
+                                value={objcliente.primeiroNome.toUpperCase()}
                             ></TextField>
                         </div>
                         <div className="form-gp-cad col-md-6">
@@ -164,7 +164,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                                 id="sobrenome"
                                 label="Sobre Nome"
                                 onChange={handleInput}
-                                value={objcliente.segundoNome}
+                                value={objcliente.segundoNome.toUpperCase()}
                             ></TextField>
                         </div>
                     </div>
@@ -276,7 +276,7 @@ export const CadastroCliente = (login: CustonLoginProps) => {
                                     type="submit"
                                     variant="contained"
                                     onClick={() => {
-                                        alert(objcliente.primeiroNome + objcliente.segundoNome);
+                                        alert(objcliente.primeiroNome.toUpperCase() + objcliente.segundoNome.toUpperCase());
                                     }}
                                 >
                                     {" "}

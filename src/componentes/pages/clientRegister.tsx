@@ -106,17 +106,17 @@ export const PageCliente = () => {
       setCliente(
         {
           id: clientReducer.id,
-          user: { id: clientReducer.user.id, nome: clientReducer.user.nome },
-          nome: clientReducer.nome,
-          sobrenome: clientReducer.sobrenome,
+          user: { id: clientReducer.user.id, nome: clientReducer.user.nome.toUpperCase() },
+          nome: clientReducer.nome.toUpperCase(),
+          sobrenome: clientReducer.sobrenome.toUpperCase(),
           cpf: clientReducer.cpf,
           telefone: clientReducer.telefone,
-          email: clientReducer.email,
-          end_rua: clientReducer.end_rua,
-          end_complemento: clientReducer.end_complemento,
-          end_cidade: clientReducer.end_cidade,
-          end_numero: clientReducer.end_numero,
-          end_estado: clientReducer.end_estado,
+          email: clientReducer.email.toUpperCase(),
+          end_rua: clientReducer.end_rua.toUpperCase(),
+          end_complemento: clientReducer.end_complemento.toUpperCase(),
+          end_cidade: clientReducer.end_cidade.toUpperCase(),
+          end_numero: clientReducer.end_numero.toUpperCase(),
+          end_estado: clientReducer.end_estado.toUpperCase(),
           end_cep: clientReducer.end_cep,
         }
       )
@@ -200,16 +200,16 @@ export const PageCliente = () => {
     storeClient(setNovoR(novo));
     storeClient(setSalvoR(salvo));
     storeClient(setId(client.id));
-    storeClient(setNome(client.nome));
-    storeClient(setSobrenome(client.sobrenome));
+    storeClient(setNome(client.nome.toUpperCase()));
+    storeClient(setSobrenome(client.sobrenome.toUpperCase()));
     storeClient(setCpf(client.cpf));
     storeClient(setCelular(client.telefone));
-    storeClient(setEmail(client.email));
-    storeClient(setEndereco(client.end_rua));
-    storeClient(setComplemento(client.end_complemento));
-    storeClient(setCidade(client.end_cidade));
-    storeClient(setNumero(client.end_numero));
-    storeClient(setEstado(client.end_estado));
+    storeClient(setEmail(client.email.toUpperCase()));
+    storeClient(setEndereco(client.end_rua.toUpperCase()));
+    storeClient(setComplemento(client.end_complemento.toUpperCase()));
+    storeClient(setCidade(client.end_cidade.toUpperCase()));
+    storeClient(setNumero(client.end_numero.toUpperCase()));
+    storeClient(setEstado(client.end_estado.toUpperCase()));
     storeClient(setCep(client.end_cep));
 
   }
@@ -410,7 +410,7 @@ export const PageCliente = () => {
                       id="feFirstName"
                       placeholder="Primeiro nome"
                       name="nome"
-                      value={client.nome}
+                      value={client.nome.toUpperCase()}
                       onChange={handleChange}
                       className="textbox"
                       disabled={habilitado}
@@ -422,7 +422,7 @@ export const PageCliente = () => {
                     <Form.Control
                       id="feLastName"
                       placeholder="Segundo nome"
-                      value={client.sobrenome}
+                      value={client.sobrenome.toUpperCase()}
                       name="sobrenome"
                       onChange={handleChange}
                       className="textbox"
@@ -462,7 +462,7 @@ export const PageCliente = () => {
                     <label htmlFor="feEmail">Email</label>
                     <Form.Control
                       name="email"
-                      value={client.email}
+                      value={client.email.toUpperCase()}
                       type="email"
                       id="feEmail"
                       placeholder="exemplo@exemplo.com"
@@ -479,7 +479,7 @@ export const PageCliente = () => {
                     <label htmlFor="feEndereco">Endereço</label>
                     <Form.Control
                       name="end_rua"
-                      value={client.end_rua}
+                      value={client.end_rua.toUpperCase()}
                       type="text"
                       id="feEndereco"
                       placeholder="Endereço Rua, Av, Travessa"
@@ -496,7 +496,7 @@ export const PageCliente = () => {
                       type="text"
                       placeholder="Nº 123456"
                       name='end_numero'
-                      value={client.end_numero}
+                      value={client.end_numero.toUpperCase()}
                       onChange={handleChange}
                       className="textbox"
                       disabled={habilitado}
@@ -509,7 +509,7 @@ export const PageCliente = () => {
                     <label htmlFor="feComplemento">Complemento</label>
                     <Form.Control
                       name="end_complemento"
-                      value={client.end_complemento}
+                      value={client.end_complemento.toUpperCase()}
                       type="text"
                       id="feComplemento"
                       placeholder="Complemento do Endereço"
@@ -526,7 +526,7 @@ export const PageCliente = () => {
                     <Form.Control
                       id="feCity"
                       name="end_cidade"
-                      value={client.end_cidade}
+                      value={client.end_cidade.toUpperCase()}
                       placeholder="Cidade"
                       onChange={handleChange}
                       className="textbox"

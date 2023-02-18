@@ -100,7 +100,9 @@ export const HomeMenu = () => {
                 </Button>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto">
-                        <Stack direction="horizontal" gap={3}>
+                        {
+                            !userLogin.logado && 
+                            <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
                                 <Button
                                     type="button"
@@ -113,6 +115,9 @@ export const HomeMenu = () => {
                                 </Button>
                             </li>
                         </Stack>
+
+                        }
+                        
                         <Stack direction="horizontal" gap={3}>
                             <li className="nav-item mx-0 mx-lg-1">
 
@@ -152,7 +157,8 @@ export const HomeMenu = () => {
                                 <li className="nav-item mx-0 mx-lg-1">
                                     <Row className='text-white'>
                                         <Col>
-                                            <p className='text-white ps-2'>Usuário logado: {userLogin.nome}</p>
+                                            
+                                            <p className='text-white ps-2'>Bem vindo: {userLogin.nome.toUpperCase()}</p>
                                         </Col>
                                         <Col>
                                             <Button

@@ -8,18 +8,18 @@ export const HomePrincipal = () => {
 
         <div className="auth-wrapper">
             <div className="auth-inner-cli">
-                <Container className="mb-8">
-                    <Row form className="row py-3">
+                <Container className="md-12 mb-5">
+                    <Row form className='mb-5'>
                         <Col>
                             <h1> Olá, seja bem vindo ao nosso projeto!  </h1>
-                        </Col>
+                            </Col>
                     </Row>
-                    <Row form>
-                        <Col md="6" className="form-group">
+                    <Row form >
+                        <Col md="12" className='mb-3'>
                         <Card>
                             <Card.Body>
-                                    <Card.Title><h3>Logomarcas</h3></Card.Title>
-                                    <Carousel fade className="carrousel">
+                                   {/* <Card.Title><h3>Logomarcas</h3></Card.Title>*/}
+                                <Carousel fade variant='dark' className="carrousel">
                                 {/*SPRING*/}
                                 <Carousel.Item>
                                     <img
@@ -36,7 +36,6 @@ export const HomePrincipal = () => {
                                         alt="Java"
                                     />
                                 </Carousel.Item>
-
                                 {/*AWS AMPLIFY */}
                                 <Carousel.Item>
                                     <img
@@ -79,23 +78,22 @@ export const HomePrincipal = () => {
                                 </Carousel.Item>
                             </Carousel>
                                     <Card.Text>
-                                        <p>Tecnologias usadas pra o desenvolvimento do projeto A3</p>
-                                        <br />
+                                        {/*<p>Tecnologias usadas pra o desenvolvimento do projeto A3</p>*/}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
 
                         </Col>
                         <br />
-                        <Col md="6" className="form-group">
+                        <Col md="12" className="mb-3">
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h3>Desenvolvimento Utilizando</h3></Card.Title>
+                                    <Card.Title><h3>Desenvolvimento</h3></Card.Title>
                                     <Card.Text>
-                                        <p>Tecnologias utilizadas para o frontend; ReactJS, Typescript, Bootstrap, MaterialUI,
-                                            Bootstrap Icons, FontAwesome Icons, React-Bootstrap.  </p>
+                                        <p>Tecnologias utilizadas para o front-end; ReactJS, Typescript, Bootstrap, MaterialUI,
+                                            Bootstrap Icons, FontAwesome, Icons, React-Bootstrap.  </p>
                                         <br />
-                                        <p>Tecnologias utilizadas para o backend; Java, Framwork Spring, Spring Boot, Spring MVC, Spring Data, Spring WEB, Spring Security,
+                                        <p>Tecnologias utilizadas para o back-end; Java, Framwork Spring, Spring Boot, Spring Data JPA, Spring WEB, Spring Security,
                                             Swagger 2, Flyway, Bean Validation, JWT, Lombook, ModelMapper, JDBC MySql, Maven.
                                         </p>
                                         <br />
@@ -104,17 +102,14 @@ export const HomePrincipal = () => {
                             </Card>
                         </Col>
                     </Row>   
-                    <Row form> 
+                    <Row form > 
                         <Col>
                             <br />
                             <Card>
                                 <Card.Body>
-                                    <Card.Title><h3>Equipe e Projeto</h3></Card.Title>
+                                    <Card.Title><h3>Projeto</h3></Card.Title>
                                     <Card.Text>
-                                        <p>Equipe composta por Marco Alexandre e Tiago Teixeira</p>
-                                        <br />
-                                        <p>Propósito do projeto; demostrar as habilidades adquiridas até aqui. Proposta do projeto; Pequeno sistema
-                                            de agenda de clintes, com cadastro simplificado de usuário, onde cada usuário consiga ter acesso à apenas os seus
+                                        <p>Proposta do projeto; Pequeno sistema de agenda de clintes, com cadastro simplificado de usuário, onde cada usuário consiga ter acesso à apenas os seus
                                             clientes particulares. Entretanto com controle de perfil de usuario o administrador por sua vez consegue ter acesso
                                             a todos os clientes cadastradosde por todos os usuarios do sistema. Isso demostra que o backend consegue tratar os
                                             perfís separadamente e por sua vez devolvendo apenas os dados a quem pertence.

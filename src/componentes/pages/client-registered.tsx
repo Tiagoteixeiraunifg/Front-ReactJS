@@ -130,17 +130,17 @@ export const TabelaCliente: React.FC = () => {
         storeClient(setCancExcluir(false));
         storeClient(setId(cl.id));
         storeClient(setIdUser(cl.user.id));
-        storeClient(setNomeUser(cl.user.nome));
-        storeClient(setNome(cl.nome));
-        storeClient(setSobrenome(cl.sobrenome));
+        storeClient(setNomeUser(cl.user.nome.toUpperCase()));
+        storeClient(setNome(cl.nome.toUpperCase()));
+        storeClient(setSobrenome(cl.sobrenome.toUpperCase()));
         storeClient(setCpf(cl.cpf));
         storeClient(setCelular(cl.telefone));
-        storeClient(setEmail(cl.email));
-        storeClient(setEndereco(cl.end_rua));
-        storeClient(setComplemento(cl.end_complemento));
-        storeClient(setCidade(cl.end_cidade));
-        storeClient(setNumero(cl.end_numero));
-        storeClient(setEstado(cl.end_estado));
+        storeClient(setEmail(cl.email.toUpperCase()));
+        storeClient(setEndereco(cl.end_rua.toUpperCase()));
+        storeClient(setComplemento(cl.end_complemento.toUpperCase()));
+        storeClient(setCidade(cl.end_cidade.toUpperCase()));
+        storeClient(setNumero(cl.end_numero.toUpperCase()));
+        storeClient(setEstado(cl.end_estado.toUpperCase()));
         storeClient(setCep(cl.end_cep));
 
     }
@@ -236,7 +236,7 @@ export const TabelaCliente: React.FC = () => {
         return (client.map((cli, index) => {
             const cl: IClient = cli;
             return (
-                <tr key={index} onClick={(e) => { handleCheck(e, index) }}>
+                <tr className='mt-1' key={index} onClick={(e) => { handleCheck(e, index) }}>
                     <td>
                         <Button
                             key={index}
@@ -258,14 +258,14 @@ export const TabelaCliente: React.FC = () => {
                         </Button>
                     </td>
                     <td>{cl.id}</td>
-                    <td>{cl.user.nome}</td>
-                    <td>{cl.nome}</td>
-                    <td>{cl.sobrenome}</td>
-                    <td>{cl.email}</td>
+                    <td>{cl.user.nome.toUpperCase()}</td>
+                    <td>{cl.nome.toUpperCase()}</td>
+                    <td>{cl.sobrenome.toUpperCase()}</td>
+                    <td>{cl.email.toUpperCase()}</td>
                     <td>{cl.cpf}</td>
                     <td>{cl.telefone}</td>
-                    <td>{cl.end_rua}</td>
-                    <td>{cl.end_complemento}</td>
+                    <td>{cl.end_rua.toUpperCase()}</td>
+                    <td>{cl.end_complemento.toUpperCase()}</td>
 
                 </tr>)
         }))
@@ -283,15 +283,10 @@ export const TabelaCliente: React.FC = () => {
                                     {del &&
                                         <ModalConfirmDelClient />
                                     }
-
-                                    <br />
-                                    <br />
-                                    <h3>LISTAGEM DE CLIENTES CADASTRADOS</h3>
-                                    <br />
-                                    <br />
-                                    {client &&
+                                    <h3 className="mb-3 mt-3">LISTAGEM DE CLIENTES CADASTRADOS</h3>
+                                    {client  &&
                                         <>
-                                            <h5>Total de Clientes Cadastrados: {client.length}</h5>
+                                            <h5 className="mb-2 mt-1">Total de Clientes Cadastrados: {client.length}</h5>
                                         </>
                                     }
                                     {errors && falha &&
@@ -305,17 +300,12 @@ export const TabelaCliente: React.FC = () => {
                                         <AcceptMessage>{index}</AcceptMessage>
                                     }
 
-                                    <Table
-                                        responsive
-                                        bordered
-                                        hover
-                                        striped
+                                    <Table responsive  bordered  hover  className="mt-3"
                                     >
-
-                                        <thead>
-                                            <tr>{/*cabeçalho da tabela*/}
-                                                <th></th>
-                                                <th></th>
+                                        <thead>{/*cabeçalho da tabela*/}
+                                            <tr>
+                                                <th>Editar</th>
+                                                <th>Excluir</th>
                                                 <th>Código</th>
                                                 <th>Usuário Cad.</th>
                                                 <th>Nome</th>
@@ -325,18 +315,16 @@ export const TabelaCliente: React.FC = () => {
                                                 <th>Telefone</th>
                                                 <th>Endereço</th>
                                                 <th>Complemento</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {client.length > 0 && listClientTable()}
                                         </tbody>
-
                                     </Table>
-
                                     <Row>
                                         <Col>
-                                            <Button
+                                            {/* Botao Listar */}
+                                            <Button 
                                                 type='button'
                                                 className='m-2'
                                                 variant="secondary"
@@ -354,7 +342,7 @@ export const TabelaCliente: React.FC = () => {
                                                 <FontAwesomeIcon className='fa-xl me-2' icon={faRotate} />
                                                 Listar
                                             </Button>
-
+                                            {/* Botao Editar */}        
                                             <Button
                                                 type='button'
                                                 className='m-2'
@@ -369,7 +357,7 @@ export const TabelaCliente: React.FC = () => {
                                                 <FontAwesomeIcon className='fa-xl me-2' icon={faUserPen} />
                                                 Editar
                                             </Button>
-
+                                            {/* Botao Excluir */}       
                                             <Button
                                                 className='m-2'
                                                 type='button'
@@ -380,7 +368,7 @@ export const TabelaCliente: React.FC = () => {
                                                 <FontAwesomeIcon className='fa-xl me-2' icon={faTrashCan} />
                                                 Excluir
                                             </Button>
-
+                                              {/* Botao Voltar */}
                                             <Button
                                                 className='m-2'
                                                 variant="secondary"

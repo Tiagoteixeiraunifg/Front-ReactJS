@@ -26,7 +26,7 @@ export const HomeFooter = () => {
                 <h4 className="text-uppercase mb-4">Contato</h4>
                 <p className="lead mb-0">
                   Projeto desenvolvido para fins acadêmicos reservando o direito a erros de formatação e estilização
-                  <a href="https://centrouniversitariounifg.edu.br">Acesse UniFG</a>
+                  <a href="https://devtiagoteixeira.com.br">Acesse</a>
                   .
                 </p>
               </div>
