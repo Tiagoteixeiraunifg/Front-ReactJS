@@ -349,7 +349,7 @@ export const PageCliente = () => {
     })
       .then((response) => {
         setLoadingExcluir(false);
-        if (response.status == 204) {
+        if (response.status === 204) {
           setSucess('Cliente Deletado!');
           setSalvo(true);
           setFalha(false);

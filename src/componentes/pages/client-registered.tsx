@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faFloppyDisk, faUserPen, faTrashCan, faList, faRotate, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { faUserPen, faTrashCan, faList, faRotate, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { IClient } from '../../interfaces';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
@@ -78,6 +78,12 @@ export const TabelaCliente: React.FC = () => {
         }
     }, [clientReducer.cancExcluir])
 
+    useEffect(() => {
+        if (!listando) {
+            listarClient();
+        }
+    }, [listando])
+
     /**
      * METODO GET AXIOS PARA CARREGAR LISTA DE CLIENTES
      */
@@ -89,13 +95,13 @@ export const TabelaCliente: React.FC = () => {
                 'Authorization': `Bearer ${userLogin.token}`
             }
         })
-            .then((response) => {
-                if (response.status === 200) {
+            .then((response: { status: number; data: { data: React.SetStateAction<IClient[]>; }; }) => {
+                if (response.status == 200) {
                     setCliente(response.data.data);
                     setLoading(false);
                     setListando(false);
                     setFalha(false);
-                } else if (response.status === 201) {
+                } else if (response.status == 201) {
                     setError('Usuário sem clientes cadastrados!');
                     setFalha(false);
                     setLoading(false);
@@ -103,14 +109,14 @@ export const TabelaCliente: React.FC = () => {
                 }
 
             })
-            .catch((err) => {
+            .catch((error: { response: { status: string | number; data: { errors: React.SetStateAction<Errors>; }; }; }) => {
 
                 setLoading(false);
-                if (err.response.status === 401) {
-                    setError(err.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");
-                } else if (err.response.status === 400) {
+                if (error.response.status == 401) {
+                    setError(error.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");
+                } else if (error.response.status == 400) {
                     setFalha(true);
-                    setErrors(err.response.data.errors);
+                    setErrors(error.response.data.errors);
                 }
             })
 
@@ -182,17 +188,17 @@ export const TabelaCliente: React.FC = () => {
                 'Authorization': `Bearer ${userLogin.token}`
             }
         })
-            .then((response) => {
+            .then((response: { status: number; }) => {
                 if (response.status == 204) {
                     setFalha(false);
                     setDel(false);
                     setIndex('Cliente Deletado!');
                 }
-            }).catch((err) => {
-                if (err.response.status === 401) {
+            }).catch((err: { response: { status: string | number; data: { errors: React.SetStateAction<Errors>; }; }; }) => {
+                if (err.response.status == 401) {
                     setError(err.response.status + ": Token expirado, acesso negado pelo servidor, faça login novamente!");
                     setDel(false);
-                } else if (err.response.status === 400) {
+                } else if (err.response.status == 400) {
                     setFalha(true);
                     setDel(false);
                     setErrors(err.response.data.errors);
@@ -328,7 +334,7 @@ export const TabelaCliente: React.FC = () => {
                                                 type='button'
                                                 className='m-2'
                                                 variant="secondary"
-                                                onClick={() => { listarClient(), setListando(true) }}
+                                                onClick={() => { if(!listando) {setListando(true)}  }}
                                             >
                                                 {loading &&
                                                     <Spinner
@@ -348,9 +354,7 @@ export const TabelaCliente: React.FC = () => {
                                                 className='m-2'
                                                 variant="secondary"
                                                 disabled={!editDel}
-                                                onClick={() => {
-                                                    if (editDel) {
-                                                        navegarPara('/cad-cli')
+                                                onClick={() => {if (editDel) {navegarPara('/cad-cli')
                                                     }
                                                 }}
                                             >

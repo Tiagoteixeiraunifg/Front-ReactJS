@@ -1,7 +1,5 @@
-import React from 'react';
 import axios from "axios";
-import http from "http";
-import https from "https";
+
 
 //baseURL: "http://localhost:80/api",
 //baseURL: "https://api-spring-a3.herokuapp.com/api",
@@ -13,9 +11,6 @@ const apiAuth = axios.create({
     headers: {'Content-Type': 'application/json', 'Accept': '*/*'},
     responseType: 'json',
     responseEncoding: 'utf8',
-    httpAgent: new http.Agent({ keepAlive: true }),
-    httpsAgent: new https.Agent({ keepAlive: false }),
-
 });
 
 apiAuth.interceptors.request.use(config => {
